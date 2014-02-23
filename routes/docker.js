@@ -25,6 +25,7 @@ var resWrite = function(req, res, input){
 //refactor to a different file
 var Docker = require('dockerode');
 var docker = new Docker({socketPath: '/var/run/docker.sock'});
+var pexec = require('../docker_util/pexec').pexec;
 
 var createContainer = function(){
   docker.run('2947c9301082', [], process.stdout, function(err, data, container) {
@@ -47,11 +48,15 @@ var stopAll = function(){
   });
 };
 
+
+var runContainer = function(){
+  pexec('ls');
+};
+
 exports.create = function(req, res){
   //not working because async
   listContainers();
-  createContainer();
-  listContainers();
+  runContainer();
 
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
 };
