@@ -49,14 +49,16 @@ var stopAll = function(){
 };
 
 
-var runContainer = function(){
-  pexec('ls');
+var runContainer = function(externalPort){
+  var cmd = 'docker run -d -p '+ externalPort  +':9000 2947c9301082'
+  pexec(cmd);
 };
 
 exports.create = function(req, res){
   //not working because async
-  listContainers();
-  runContainer();
+  runContainer(9877);
+  runContainer(9873);
+  runContainer(9871);
 
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
 };
