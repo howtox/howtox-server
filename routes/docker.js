@@ -20,6 +20,19 @@ var resWrite = function(req, res, input){
   res.end();
 };
 
+//docker
+//todo
+//refactor to a different file
+var Docker = require('dockerode');
+var docker = new Docker({socketPath: '/var/run/docker.sock'});
+
 exports.create = function(req, res){
+  console.log('docker',docker);
+  docker.listContainers(function(err, containers) {
+    console.log('list', err, containers);
+    containers.forEach(function(containerInfo) {
+      docker.getContainer(containerInfo.Id).stop();
+    });
+  });
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
 };
