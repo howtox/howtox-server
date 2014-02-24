@@ -37,7 +37,8 @@ app.get('/users', user.list);
 
 app.get('/docker', dockerRoutes.index);
 app.get('/docker/', dockerRoutes.index);
-app.get('/docker/create', dockerRoutes.create);
+app.get('/docker/containers/create', dockerRoutes.create);
+app.get('/docker/containers/stop', dockerRoutes.stop);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

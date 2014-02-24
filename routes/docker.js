@@ -8,9 +8,9 @@ exports.index = function(req, res){
 };
 
 var resWrite = function(req, res, input){
-  res.writeHead(200, {
-    'Content-Type': 'application/json'
-  });
+  // res.writeHead(200, {
+  //   'Content-Type': 'application/json'
+  // });
 
   if(typeof input !== 'string'){
     input = JSON.stringify(input);
@@ -39,11 +39,11 @@ var listContainers = function(){
   });
 };
 
-var stopAll = function(){
+var stopAll = function(cb){
   docker.listContainers(function(err, containers) {
-    console.log('list', err, containers);
+    // console.log('list', err, containers);
     containers.forEach(function(containerInfo) {
-      docker.getContainer(containerInfo.Id).stop();
+      docker.getContainer(containerInfo.Id).stop(cb);
     });
   });
 };
@@ -61,4 +61,10 @@ exports.create = function(req, res){
   runContainer(9871);
 
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
+};
+
+exports.stop = function(req, res){
+  stopAll(function(){
+    resWrite(req, res, {msg:'Stop'});
+  });
 };
