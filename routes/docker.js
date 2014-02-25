@@ -84,7 +84,7 @@ exports.create = function(req, res){
   }
 //   runContainer(9877);
 
-  resWrite(req, res, {key1: 'value1', key2: 'value2'});
+  resWrite(req, res, {msg:200});
 };
 
 exports.stop = function(req, res){
