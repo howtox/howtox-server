@@ -55,8 +55,33 @@ var runContainer = function(externalPort){
 };
 
 exports.create = function(req, res){
-  //not working because async
-  console.log('req.params.id', req.params.id);
+  switch(req.params.id){
+    case '0':
+        console.log('0');
+        pexec('docker run -d -p 8000:8000 -p 8001:3131 howtox/c9_ng_sup_step0 /usr/local/bin/supervisord');
+        break;
+    case '1':
+        console.log('1');
+        pexec('docker run -d -p 8010:8000 -p 8011:3131 howtox/c9_ng_sup_step1 /usr/local/bin/supervisord');
+        break;        
+    case '2':
+        console.log('2');
+        pexec('docker run -d -p 8020:8000 -p 8021:3131 howtox/c9_ng_sup_step2 /usr/local/bin/supervisord');
+        break;        
+    case '3':
+        console.log('3');
+        pexec('docker run -d -p 8030:8000 -p 8031:3131 howtox/c9_ng_sup_step3 /usr/local/bin/supervisord');
+        break;        
+    case '99':
+        console.log('99');
+        stopAll(function(){
+            console.log('STOP ALL');
+        });
+        break;
+    default:
+        console.log('default');
+        break;
+  }
 //   runContainer(9877);
 
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
