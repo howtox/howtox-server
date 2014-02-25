@@ -50,15 +50,14 @@ var stopAll = function(cb){
 
 
 var runContainer = function(externalPort){
-  var cmd = 'docker run -d -p '+ externalPort  +':9000 2947c9301082'
+  var cmd = 'docker run -d -p '+ externalPort  +':3131 howtox/c9_ng'
   pexec(cmd);
 };
 
 exports.create = function(req, res){
   //not working because async
-  runContainer(9877);
-  runContainer(9873);
-  runContainer(9871);
+  console.log('req.params.id', req.params.id);
+//   runContainer(9877);
 
   resWrite(req, res, {key1: 'value1', key2: 'value2'});
 };
