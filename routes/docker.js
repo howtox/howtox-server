@@ -54,36 +54,54 @@ var runContainer = function(externalPort){
   pexec(cmd);
 };
 
+var getCommand = function(gitTag){
+    var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
+    var minPort = 1024;
+    var randomPort = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
+
+    var command = 'docker run -d '+ 
+            ' -p ' + randomPort +':3131'+ 
+            ' -p ' + (randomPort+1) +':8000 '+ 
+            ' -e TAG=' + gitTag +
+            ' 66cfb37f9cb4';
+    return {
+        command: command,
+        port: randomPort
+    };
+};
+
 exports.create = function(req, res){
   var gitTag = req.body && req.body.tag;
-  var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
-  var minPort = 1024;
-  var randomPort = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
-  var command;
+  var commandObj;
   switch(gitTag){
     case 'step-0':
         console.log('0');
-        command = 'docker run -d -p '+ 
-            randomPort +':8000 -p '+ 
-            (randomPort+1) +':3131 '+ 
-            '-e TAG=step-0' +
-            ' 66cfb37f9cb4';
-        pexec(command).then(function(){
-            resWrite(req, res, {port:randomPort});
+        commandObj = getCommand(gitTag);
+        pexec(commandObj.command).then(function(){
+            resWrite(req, res, {port:commandObj.port});
         });
         break;
     case 'step-1':
         console.log('1');
-        pexec('docker run -d -p 8010:8000 -p 8011:3131 howtox/c9_ng_sup_step1 /usr/local/bin/supervisord');
+        command = getCommand(gitTag);
+        pexec(command).then(function(){
+            resWrite(req, res, {port:randomPort});
+        });
         break;        
     case '2':
         console.log('2');
-        pexec('docker run -d -p 8020:8000 -p 8021:3131 howtox/c9_ng_sup_step2 /usr/local/bin/supervisord');
+        command = getCommand(gitTag);
+        pexec(command).then(function(){
+            resWrite(req, res, {port:randomPort});
+        });
         break;        
     case '3':
         console.log('3');
-        pexec('docker run -d -p 8030:8000 -p 8031:3131 howtox/c9_ng_sup_step3 /usr/local/bin/supervisord');
-        break;        
+        command = getCommand(gitTag);
+        pexec(command).then(function(){
+            resWrite(req, res, {port:randomPort});
+        });
+        break;      
     case '99':
         console.log('99');
         stopAll(function(){
