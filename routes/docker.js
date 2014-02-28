@@ -83,23 +83,23 @@ exports.create = function(req, res){
         break;
     case 'step-1':
         console.log('1');
-        command = getCommand(gitTag);
-        pexec(command).then(function(){
-            resWrite(req, res, {port:randomPort});
+        commandObj = getCommand(gitTag);
+        pexec(commandObj.command).then(function(){
+            resWrite(req, res, {port:commandObj.port});
         });
         break;        
-    case '2':
+    case 'step-2':
         console.log('2');
-        command = getCommand(gitTag);
-        pexec(command).then(function(){
-            resWrite(req, res, {port:randomPort});
+        commandObj = getCommand(gitTag);
+        pexec(commandObj.command).then(function(){
+            resWrite(req, res, {port:commandObj.port});
         });
         break;        
-    case '3':
+    case 'step-3':
         console.log('3');
-        command = getCommand(gitTag);
-        pexec(command).then(function(){
-            resWrite(req, res, {port:randomPort});
+        commandObj = getCommand(gitTag);
+        pexec(commandObj.command).then(function(){
+            resWrite(req, res, {port:commandObj.port});
         });
         break;      
     case '99':
