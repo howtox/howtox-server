@@ -55,12 +55,20 @@ var runContainer = function(externalPort){
 };
 
 exports.create = function(req, res){
-  switch(req.params.id){
-    case '0':
+  var gitTag = req.body && req.body.tag;
+  var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
+  var minPort = 1024;
+  var randomPort = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
+  var command;
+  switch(gitTag){
+    case 'step-0':
         console.log('0');
-        pexec('docker run -d -p 8000:8000 -p 8001:3131 howtox/c9_ng_sup_step0 /usr/local/bin/supervisord');
+        command = 'docker run -d -p '+ randomPort +':8000 -p '+ (randomPort+1) +':3131 howtox/c9_ng_sup_step0 /usr/local/bin/supervisord';
+        pexec(command).then(function(){
+            resWrite(req, res, {port:randomPort});
+        });
         break;
-    case '1':
+    case 'step-1':
         console.log('1');
         pexec('docker run -d -p 8010:8000 -p 8011:3131 howtox/c9_ng_sup_step1 /usr/local/bin/supervisord');
         break;        
@@ -84,7 +92,7 @@ exports.create = function(req, res){
   }
 //   runContainer(9877);
 
-  resWrite(req, res, {msg:200});
+//   resWrite(req, res, {msg:200});
 };
 
 exports.stop = function(req, res){
