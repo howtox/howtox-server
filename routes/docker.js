@@ -63,7 +63,11 @@ exports.create = function(req, res){
   switch(gitTag){
     case 'step-0':
         console.log('0');
-        command = 'docker run -d -p '+ randomPort +':8000 -p '+ (randomPort+1) +':3131 howtox/c9_ng_sup_step0 /usr/local/bin/supervisord';
+        command = 'docker run -d -p '+ 
+            randomPort +':8000 -p '+ 
+            (randomPort+1) +':3131 '+ 
+            '-e TAG=step-0' +
+            ' 66cfb37f9cb4';
         pexec(command).then(function(){
             resWrite(req, res, {port:randomPort});
         });
