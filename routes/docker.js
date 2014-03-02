@@ -14,24 +14,24 @@ exports.index = function(req, res){
 };
 
 exports.create = function(req, res){
-    dockerController
-        .create(req, res)
-        .then(function(data){
-            resWrite(req, res, data);
-        })
-        .catch(function(err){
-            resWrite(req, res, err);
-        });
+  dockerController
+    .create(req, res)
+    .then(function(data){
+      resWrite(req, res, data);
+    })
+    .catch(function(err){
+      resWrite(req, res, err);
+    });
 };
 
 exports.stop = function(req, res){
-    console.log('stop in routes');
-    dockerController
-        .stop(req, res)
-        .then(function(){
-            resWrite(req, res, {step:'stop'});
-        })
-        .catch(function(err){
-            resWrite(req, res, {data: err});
-        });
+  console.log('stop in routes');
+  dockerController
+    .stop(req, res)
+    .then(function(){
+      resWrite(req, res, {step:'stop'});
+    })
+    .catch(function(err){
+      resWrite(req, res, {data: err});
+    });
 };
