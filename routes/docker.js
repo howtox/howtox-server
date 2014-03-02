@@ -17,10 +17,10 @@ exports.create = function(req, res){
     dockerController
         .create(req, res)
         .then(function(data){
-            resWrite(req, res, {data: data});
+            resWrite(req, res, data);
         })
         .catch(function(err){
-            resWrite(req, res, {data: err});
+            resWrite(req, res, err);
         });
 };
 
