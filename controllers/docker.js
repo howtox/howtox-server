@@ -51,53 +51,59 @@ var runContainer = function(externalPort){
   pexec(cmd);
 };
 
-doc.create = function(req, res){
+var createAngular = function(req, res){
+  var dfd = Q.defer();
+    
   var gitTag = req.body && req.body.tag;
   var commandObj;
   switch(gitTag){
     case 'step-0':
-        console.log('0');
         commandObj = getCommand(gitTag);
         console.log('0', commandObj);
-        pexec(commandObj.command).then(function(){
-            resWrite(req, res, {port:commandObj.port});
-        });
+        pexec(commandObj.command)
+            .then(function(data){
+                dfd.resolve(data);
+            });
         break;
     case 'step-1':
-        console.log('1');
         commandObj = getCommand(gitTag);
         console.log('1', commandObj);
-        pexec(commandObj.command).then(function(){
-            resWrite(req, res, {port:commandObj.port});
-        });
+        pexec(commandObj.command)
+            .then(function(data){
+                dfd.resolve(data);
+            });        
         break;        
     case 'step-2':
-        console.log('2');
         commandObj = getCommand(gitTag);
         console.log('2', commandObj);
-        pexec(commandObj.command).then(function(){
-            resWrite(req, res, {port:commandObj.port});
-        });
+        pexec(commandObj.command)
+            .then(function(data){
+                dfd.resolve(data);
+            });
         break;        
     case 'step-3':
-        console.log('3');
         commandObj = getCommand(gitTag);
         console.log('3', commandObj);
-        pexec(commandObj.command).then(function(){
-            resWrite(req, res, {port:commandObj.port});
-        });
+        pexec(commandObj.command)
+            .then(function(data){
+                dfd.resolve(data);
+            });
         break;      
     case '99':
         console.log('99');
-        stopAll(function(){
-            console.log('STOP ALL');
-        });
+        dfd.reject();
         break;
     default:
         console.log('default');
+        dfd.reject();
         break;
   }
+  
+  return dfd.promise;
+};
 
+doc.create = function(req, res){
+    return createAngular(req, res);
 };
 
 doc.stop = function(req, res){

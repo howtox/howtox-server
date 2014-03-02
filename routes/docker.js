@@ -14,7 +14,12 @@ exports.index = function(req, res){
 };
 
 exports.create = function(req, res){
-    dockerController.create(req, res);
+    dockerController
+        .create(req, res)
+        .finally(function(data){
+            console.log('finally', data);
+            resWrite(req, res, {data: data});
+        });
 };
 
 exports.stop = function(req, res){
