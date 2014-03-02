@@ -3,6 +3,7 @@ var docker = new Docker({socketPath: '/var/run/docker.sock'});
 var pexec = require('../docker_util/pexec').pexec;
 var doc = {};
 var Q = require('q');
+var _ = require('underscore');
 
 var createContainer = function(containerId){
   docker.run(containerId, [], process.stdout, function(err, data, container) {
@@ -62,7 +63,7 @@ var createAngular = function(req, res){
         console.log('0', commandObj);
         pexec(commandObj.command)
             .then(function(data){
-                dfd.resolve(data);
+                dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;
     case 'step-1':
@@ -70,7 +71,7 @@ var createAngular = function(req, res){
         console.log('1', commandObj);
         pexec(commandObj.command)
             .then(function(data){
-                dfd.resolve(data);
+                dfd.resolve(_.extend({containerId: data}, commandObj));
             });        
         break;        
     case 'step-2':
@@ -78,7 +79,7 @@ var createAngular = function(req, res){
         console.log('2', commandObj);
         pexec(commandObj.command)
             .then(function(data){
-                dfd.resolve(data);
+                dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;        
     case 'step-3':
@@ -86,7 +87,7 @@ var createAngular = function(req, res){
         console.log('3', commandObj);
         pexec(commandObj.command)
             .then(function(data){
-                dfd.resolve(data);
+                dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;      
     case '99':

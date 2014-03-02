@@ -10,6 +10,6 @@
     "jade": "*",
     "stylus": "*",
     "q": "*",
-    "underscore": "*"
+    "underscore": "^1.6.0"
   }
 }

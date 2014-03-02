@@ -16,9 +16,11 @@ exports.index = function(req, res){
 exports.create = function(req, res){
     dockerController
         .create(req, res)
-        .finally(function(data){
-            console.log('finally', data);
+        .then(function(data){
             resWrite(req, res, {data: data});
+        })
+        .catch(function(err){
+            resWrite(req, res, {data: err});
         });
 };
 
@@ -28,5 +30,8 @@ exports.stop = function(req, res){
         .stop(req, res)
         .then(function(){
             resWrite(req, res, {step:'stop'});
+        })
+        .catch(function(err){
+            resWrite(req, res, {data: err});
         });
 };
