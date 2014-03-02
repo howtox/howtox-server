@@ -77,6 +77,7 @@ exports.create = function(req, res){
     case 'step-0':
         console.log('0');
         commandObj = getCommand(gitTag);
+        console.log('0', commandObj);
         pexec(commandObj.command).then(function(){
             resWrite(req, res, {port:commandObj.port});
         });
@@ -84,6 +85,7 @@ exports.create = function(req, res){
     case 'step-1':
         console.log('1');
         commandObj = getCommand(gitTag);
+        console.log('1', commandObj);
         pexec(commandObj.command).then(function(){
             resWrite(req, res, {port:commandObj.port});
         });
@@ -91,6 +93,7 @@ exports.create = function(req, res){
     case 'step-2':
         console.log('2');
         commandObj = getCommand(gitTag);
+        console.log('2', commandObj);
         pexec(commandObj.command).then(function(){
             resWrite(req, res, {port:commandObj.port});
         });
@@ -98,6 +101,7 @@ exports.create = function(req, res){
     case 'step-3':
         console.log('3');
         commandObj = getCommand(gitTag);
+        console.log('3', commandObj);
         pexec(commandObj.command).then(function(){
             resWrite(req, res, {port:commandObj.port});
         });
