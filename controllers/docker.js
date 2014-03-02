@@ -103,6 +103,12 @@ var createAngular = function(req, res){
   return dfd.promise;
 };
 
+var createTty = function(req, res){
+    var dfd = Q.defer();
+    var demoTag = req.body && req.body.demoTag;
+    return dfd.promise;
+};
+
 doc.create = function(req, res){
     return createAngular(req, res);
 };
