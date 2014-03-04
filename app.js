@@ -12,24 +12,6 @@ var path = require('path');
 
 var app = express();
 
-var redis = require('redis');
-var client = redis.createClient();
-
-client.on('error', function(err){
-  console.log('error', err);
-});
-
-client.set('string key', 'sval', redis.print);
-client.hset('hash key', 'hk1', 'hv1', redis.print);
-client.hset(['hash key', 'hk2', 'hv2'], redis.print);
-client.hkeys('hash key', function(err, replies){
-  console.log(replies.length + ' replies:');
-  replies.forEach(function(reply, i){
-    console.log(' ' + i + ': ' + reply);
-  });
-  client.quit();
-});
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

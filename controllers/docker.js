@@ -5,6 +5,11 @@ var doc = {};
 var Q = require('q');
 var _ = require('underscore');
 
+var redisCon = require('./redis_con');
+redisCon.stopCallback(function(data){
+  console.log('cb', data);
+});
+
 var createContainer = function(containerId){
   docker.run(containerId, [], process.stdout, function(err, data, container) {
     console.log(data.StatusCode);
@@ -63,6 +68,7 @@ var createAngular = function(req, res){
         console.log('0', commandObj);
         pexec(commandObj.command)
             .then(function(data){
+                redisCon.register(data);
                 dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;
