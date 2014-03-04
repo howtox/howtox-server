@@ -13,7 +13,7 @@ redisCon.register = function(input){
 redisCon.stopCallback = function(cb){
   redisCon.subClient.on('pmessage', function(pattern, channel, expiredKey){
     console.log('key expired: ', expiredKey);
-    cb.call(expiredKey);
+    cb(expiredKey);
   });
 };
 

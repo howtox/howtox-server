@@ -6,9 +6,6 @@ var Q = require('q');
 var _ = require('underscore');
 
 var redisCon = require('./redis_con');
-redisCon.stopCallback(function(data){
-  console.log('cb', data);
-});
 
 var createContainer = function(containerId){
   docker.run(containerId, [], process.stdout, function(err, data, container) {
@@ -35,6 +32,18 @@ var stopAll = function(cb){
     });
   });
 };
+
+var stopOne = function(containerId){
+  var command = 'docker stop ' + containerId;
+  return pexec(command);
+};
+
+redisCon.stopCallback(function(data){
+  console.log('cb', data);
+  stopOne(data).then(function(output){
+    console.log('stop success', output);
+  })
+});
 
 var getCommand = function(gitTag){
     var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
