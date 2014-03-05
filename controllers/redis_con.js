@@ -7,7 +7,7 @@ redisCon.pubClient = redis.createClient();
 redisCon.subClient.psubscribe('__keyevent@0__:expired');
 
 redisCon.register = function(input){
-  redisCon.pubClient.set(input, 'randomestring', 'EX', 10, redis.print);
+  redisCon.pubClient.set(input, 'randomestring', 'EX', 900, redis.print);
 };
 
 redisCon.stopCallback = function(cb){

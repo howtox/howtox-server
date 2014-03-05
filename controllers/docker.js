@@ -70,6 +70,7 @@ var createAngular = function(req, res){
   var dfd = Q.defer();
     
   var gitTag = req.body && req.body.tag;
+  var gitRepo = req.body && req.body.repo;
   var commandObj;
   switch(gitTag){
     case 'step-0':
@@ -86,6 +87,7 @@ var createAngular = function(req, res){
         console.log('1', commandObj);
         pexec(commandObj.command)
             .then(function(data){
+                redisCon.register(data);
                 dfd.resolve(_.extend({containerId: data}, commandObj));
             });        
         break;        
@@ -94,6 +96,7 @@ var createAngular = function(req, res){
         console.log('2', commandObj);
         pexec(commandObj.command)
             .then(function(data){
+                redisCon.register(data);
                 dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;        
@@ -102,6 +105,7 @@ var createAngular = function(req, res){
         console.log('3', commandObj);
         pexec(commandObj.command)
             .then(function(data){
+                redisCon.register(data);
                 dfd.resolve(_.extend({containerId: data}, commandObj));
             });
         break;      
