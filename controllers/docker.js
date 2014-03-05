@@ -5,6 +5,8 @@ var doc = {};
 var Q = require('q');
 var _ = require('underscore');
 
+var redisCon = require('./redis_con');
+
 var createContainer = function(containerId){
   docker.run(containerId, [], process.stdout, function(err, data, container) {
     console.log(data.StatusCode);
@@ -31,16 +33,28 @@ var stopAll = function(cb){
   });
 };
 
+var stopOne = function(containerId){
+  var command = 'docker stop ' + containerId;
+  return pexec(command);
+};
+
+redisCon.stopCallback(function(data){
+  console.log('cb', data);
+  stopOne(data).then(function(output){
+    console.log('stop success', output);
+  });
+});
+
 var getCommand = function(gitTag){
   var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
   var minPort = 1024;
   var randomPort = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
 
   var command = 'docker run -d '+
-    ' -p ' + randomPort +':3131'+
-    ' -p ' + (randomPort+1) +':8000 '+
-    ' -e TAG=' + gitTag +
-    ' 66cfb37f9cb4';
+  ' -p ' + randomPort +':3131'+
+  ' -p ' + (randomPort+1) +':8000 '+
+  ' -e TAG=' + gitTag +
+  ' 66cfb37f9cb4';
 
   return {
     command: command,
@@ -57,6 +71,7 @@ var createAngular = function(req, res){
   var dfd = Q.defer();
 
   var gitTag = req.body && req.body.tag;
+  var gitRepo = req.body && req.body.repo;
   var commandObj;
   switch(gitTag){
     case 'step-0':
@@ -64,6 +79,7 @@ var createAngular = function(req, res){
       console.log('0', commandObj);
       pexec(commandObj.command)
         .then(function(data){
+          redisCon.register(data);
           dfd.resolve(_.extend({containerId: data}, commandObj));
         });
       break;
@@ -72,6 +88,7 @@ var createAngular = function(req, res){
       console.log('1', commandObj);
       pexec(commandObj.command)
         .then(function(data){
+          redisCon.register(data);
           dfd.resolve(_.extend({containerId: data}, commandObj));
         });
       break;
@@ -80,6 +97,7 @@ var createAngular = function(req, res){
       console.log('2', commandObj);
       pexec(commandObj.command)
         .then(function(data){
+          redisCon.register(data);
           dfd.resolve(_.extend({containerId: data}, commandObj));
         });
       break;
@@ -88,6 +106,7 @@ var createAngular = function(req, res){
       console.log('3', commandObj);
       pexec(commandObj.command)
         .then(function(data){
+          redisCon.register(data);
           dfd.resolve(_.extend({containerId: data}, commandObj));
         });
       break;
