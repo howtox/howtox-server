@@ -156,6 +156,36 @@ var createTty = function(req, res){
   return dfd.promise;
 };
 
+var getCommandFactory = function(repo, cmd){
+  var randomPort = getNewPort();
+  var command = 'docker run -d '+
+  ' -p ' + randomPort +':8000 '+
+  ' ' + repo + ' ' + 
+  ' node ' + cmd;
+
+  return {
+    command: command,
+    port: randomPort
+  };
+};
+
+var createFactory = {};
+createFactory['mikeal/request'] = function(req, res){
+  var dfd = Q.defer();
+  var repo = req.body && req.body.repo;
+  var cmd = req.body && req.body.cmd;
+
+  var commandObj = getCommandFactory(repo, cmd);
+  pexec(commandObj.command)
+    .then(function(data){
+      redisCon.register(data);
+      dfd.resolve(_.extend({containerId: data}, commandObj));
+    });
+        
+  return dfd.promise;
+};
+
+
 doc.create = function(req, res){
   var repo = req.body && req.body.repo;
   var promise;
@@ -167,6 +197,10 @@ doc.create = function(req, res){
     case 'chjj/tty.js':
       console.log('tty');
       promise = createTty(req, res);
+      break;
+    case 'mikeal/request':
+      console.log(repo);
+      promise = createFactory[repo](req, res);
       break;
     default:
       console.log('default repo');
