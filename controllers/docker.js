@@ -45,11 +45,15 @@ redisCon.stopCallback(function(data){
   });
 });
 
-var getCommand = function(gitTag){
+var getNewPort = function(){
   var maxPort = Math.pow(2,16); //http://stackoverflow.com/questions/113224/what-is-the-largest-tcp-ip-network-port-number-allowable-for-ipv4
   var minPort = 1024;
   var randomPort = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
+  return randomPort;
+};
 
+var getCommand = function(gitTag){
+  var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':3131'+
   ' -p ' + (randomPort+1) +':8000 '+
@@ -71,7 +75,6 @@ var createAngular = function(req, res){
   var dfd = Q.defer();
 
   var gitTag = req.body && req.body.tag;
-  var gitRepo = req.body && req.body.repo;
   var commandObj;
   switch(gitTag){
     case 'step-0':
@@ -123,9 +126,31 @@ var createAngular = function(req, res){
   return dfd.promise;
 };
 
+
+var getTtyCommand = function(){
+  var randomPort = getNewPort();
+  var command = 'docker run -d '+
+  ' -p ' + randomPort +':8000 '+
+  ' howtox/tty.js node demo1.js';
+
+  return {
+    command: command,
+    port: randomPort
+  };
+};
+
 var createTty = function(req, res){
   var dfd = Q.defer();
   var demoTag = req.body && req.body.demoTag;
+
+  var commandObj = getTtyCommand();
+  console.log('tty', commandObj);
+  pexec(commandObj.command)
+    .then(function(data){
+      redisCon.register(data);
+      dfd.resolve(_.extend({containerId: data}, commandObj));
+    });
+        
   return dfd.promise;
 };
 
