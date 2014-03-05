@@ -127,11 +127,12 @@ var createAngular = function(req, res){
 };
 
 
-var getTtyCommand = function(){
+var getTtyCommand = function(cmd){
   var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':8000 '+
-  ' howtox/tty.js node demo1.js';
+  ' howtox/tty.js ' + 
+  ' node ' + cmd;
 
   return {
     command: command,
@@ -142,8 +143,9 @@ var getTtyCommand = function(){
 var createTty = function(req, res){
   var dfd = Q.defer();
   var demoTag = req.body && req.body.demoTag;
+  var cmd = req.body && req.body.cmd;
 
-  var commandObj = getTtyCommand();
+  var commandObj = getTtyCommand(cmd);
   console.log('tty', commandObj);
   pexec(commandObj.command)
     .then(function(data){
