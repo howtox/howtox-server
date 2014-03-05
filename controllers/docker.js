@@ -129,7 +129,22 @@ var createTty = function(req, res){
 };
 
 doc.create = function(req, res){
-    return createAngular(req, res);
+  var repo = req.body && req.body.repo;
+  var promise;
+  switch(repo){
+    case 'angular/angular-phonecat':
+      console.log('angular');
+      promise = createAngular(req, res);
+      break;
+    case 'chjj/tty.js':
+      console.log('tty');
+      promise = createTty(req, res);
+      break;
+    default:
+      console.log('default repo');
+      break;
+  }
+  return promise;
 };
 
 doc.stop = function(req, res){
