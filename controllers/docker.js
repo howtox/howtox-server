@@ -53,12 +53,13 @@ var getNewPort = function(){
 };
 
 var getCommand = function(gitTag){
+  console.log('get command');
   var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':3131'+
   ' -p ' + (randomPort+1) +':8000 '+
   ' -e TAG=' + gitTag +
-  ' 66cfb37f9cb4';
+  ' angular/angular-phonecat';
 
   return {
     command: command,
