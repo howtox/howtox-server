@@ -1,9 +1,12 @@
+var _ = require('underscore'),
+  Q = require('q'),
+  hbs = require('express-hbs'),
+  analytics = require('analytics-node');
+
 var Docker = require('dockerode');
 var docker = new Docker({socketPath: '/var/run/docker.sock'});
 var pexec = require('../docker_util/pexec').pexec;
 var doc = {};
-var Q = require('q');
-var _ = require('underscore');
 
 var redisCon = require('./redis_con');
 
@@ -77,51 +80,20 @@ var createAngular = function(req, res){
 
   var gitTag = req.body && req.body.tag;
   var commandObj;
-  switch(gitTag){
-    case 'step-0':
+  
+  var expected = ['step-0', 'step-1', 'step-2', 'step-3',
+  'step-4', 'step-5', 'step-6', 'step-7',
+  'step-8', 'step-9', 'step-10'];
+  
+  if(_(expected).contains(gitTag)){
       commandObj = getCommand(gitTag);
-      console.log('0', commandObj);
       pexec(commandObj.command)
         .then(function(data){
           redisCon.register(data);
           dfd.resolve(_.extend({containerId: data}, commandObj));
         });
-      break;
-    case 'step-1':
-      commandObj = getCommand(gitTag);
-      console.log('1', commandObj);
-      pexec(commandObj.command)
-        .then(function(data){
-          redisCon.register(data);
-          dfd.resolve(_.extend({containerId: data}, commandObj));
-        });
-      break;
-    case 'step-2':
-      commandObj = getCommand(gitTag);
-      console.log('2', commandObj);
-      pexec(commandObj.command)
-        .then(function(data){
-          redisCon.register(data);
-          dfd.resolve(_.extend({containerId: data}, commandObj));
-        });
-      break;
-    case 'step-3':
-      commandObj = getCommand(gitTag);
-      console.log('3', commandObj);
-      pexec(commandObj.command)
-        .then(function(data){
-          redisCon.register(data);
-          dfd.resolve(_.extend({containerId: data}, commandObj));
-        });
-      break;
-    case '99':
-      console.log('99');
-      dfd.reject();
-      break;
-    default:
-      console.log('default');
-      dfd.reject();
-      break;
+  } else {
+    dfd.reject();
   }
 
   return dfd.promise;
