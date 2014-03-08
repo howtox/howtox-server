@@ -9,13 +9,20 @@ var user = require('./routes/user');
 var dockerRoutes = require('./routes/docker');
 var http = require('http');
 var path = require('path');
+var hbs = require('express-hbs');
 
 var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
+// Use `.hbs` for extensions and find partials in `views/partials`.
+app.engine('hbs', hbs.express3({
+  partialsDir: __dirname + '/views/partials'
+}));
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
