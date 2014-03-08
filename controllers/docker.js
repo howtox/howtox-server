@@ -6,7 +6,7 @@ var _ = require('underscore'),
 var Docker = require('dockerode');
 var docker = new Docker({socketPath: '/var/run/docker.sock'});
 var pexec = require('../docker_util/pexec').pexec;
-var doc = {};
+var doc = module.exports = {};
 
 var redisCon = require('./redis_con');
 
@@ -190,4 +190,6 @@ doc.stop = function(req, res){
   return dfd.promise;
 };
 
-module.exports = doc;
+doc.index = function(req, res){
+  res.end('docker index');
+};
