@@ -1,8 +1,21 @@
+var api         = require('./api'),
+    frontend    = require('./frontend'),
+    docker      = require('./docker');
 
-/*
- * GET home page.
- */
+module.exports = function(app){
+  // ## Routing
+  var routes = {
+    api: api,
+    frontend: frontend,
+    docker: docker
+  };
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+  // Set up API routes
+  routes.api(app);
+
+  // Set up Frontend routes
+  routes.frontend(app);
+
+  // Set up Docker routes
+  routes.docker(app);
 };

@@ -10,7 +10,7 @@ global.analytics = require('analytics-node');
 require('./config/env.js')(app);  //has to go first
 require('./config/db.js')(app);
 require('./config/middleware.js')(app);
-require('./config/routes.js')(app);
+require('./routes')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port') + ' in env: ' + app.get('env') );
