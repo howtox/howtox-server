@@ -1,11 +1,8 @@
-var _ = require('underscore'),
-  Q = require('q'),
-  hbs = require('express-hbs'),
-  analytics = require('analytics-node'),
-  pexec = require('../docker_util/pexec').pexec,
+var pexec = require('../docker_util/pexec').pexec,
   redisCon = require('./redis_con'),
   doc = module.exports = {};
 
+//redis kills container after 15 minutes
 redisCon.stopCallback(function(data){
   console.log('cb', data);
   stopOne(data).then(function(output){
@@ -29,7 +26,7 @@ var getCommandFactory = function(repo, cmd){
   var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':8000 '+
-  ' ' + repo + ' ' + 
+  ' ' + repo + ' ' +
   ' node ' + cmd;
 
   return {
@@ -50,7 +47,7 @@ createFactory['mikeal/request'] = function(req, res){
       redisCon.register(data);
       dfd.resolve(_.extend({containerId: data}, commandObj));
     });
-        
+
   return dfd.promise;
 };
 

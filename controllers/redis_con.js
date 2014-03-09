@@ -1,5 +1,5 @@
-var redis = require('redis');
-var redisCon = {};
+var redis = require('redis'),
+  redisCon = module.exports = {};
 
 redisCon.subClient = redis.createClient();
 redisCon.pubClient = redis.createClient();
@@ -16,5 +16,3 @@ redisCon.stopCallback = function(cb){
     cb(expiredKey);
   });
 };
-
-module.exports = redisCon;
