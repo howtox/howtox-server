@@ -1,8 +1,13 @@
+var pexec = require('../utils/command_line').pexec,
+  getNewPort = require('./docker_admin').getNewPort,
+  redisCon = require('./redis_con'),
+  chjjTtyJs = module.exports = {};
+
 var getTtyCommand = function(cmd){
   var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':8000 '+
-  ' howtox/tty.js ' + 
+  ' howtox/tty.js ' +
   ' node ' + cmd;
 
   return {
@@ -11,7 +16,7 @@ var getTtyCommand = function(cmd){
   };
 };
 
-var createTty = function(req, res){
+chjjTtyJs.createTty = function(req, res){
   var dfd = Q.defer();
   var demoTag = req.body && req.body.demoTag;
   var cmd = req.body && req.body.cmd;
@@ -23,6 +28,6 @@ var createTty = function(req, res){
       redisCon.register(data);
       dfd.resolve(_.extend({containerId: data}, commandObj));
     });
-        
+
   return dfd.promise;
 };

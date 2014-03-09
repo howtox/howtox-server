@@ -1,3 +1,9 @@
+var getNewPort = require('./docker_admin').getNewPort,
+  pexec = require('../utils/command_line').pexec,
+  getNewPort = require('./docker_admin').getNewPort,
+  redisCon = require('./redis_con'),
+  angularPhonecat = module.exports = {};
+
 var getCommand = function(gitTag){
   console.log('get command');
   var randomPort = getNewPort();
@@ -13,16 +19,16 @@ var getCommand = function(gitTag){
   };
 };
 
-var createAngular = function(req, res){
+angularPhonecat.createAngular = function(req, res){
   var dfd = Q.defer();
 
   var gitTag = req.body && req.body.tag;
   var commandObj;
-  
+
   var expected = ['step-0', 'step-1', 'step-2', 'step-3',
   'step-4', 'step-5', 'step-6', 'step-7',
   'step-8', 'step-9', 'step-10'];
-  
+
   if(_(expected).contains(gitTag)){
       commandObj = getCommand(gitTag);
       pexec(commandObj.command)
