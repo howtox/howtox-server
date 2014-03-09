@@ -8,6 +8,7 @@ global.Q    = require('q');
 global.analytics = require('analytics-node');
 
 require('./config/env.js')(app);  //has to go first
+require('./config/util.js')(app);
 require('./config/db.js')(app);
 require('./config/middleware.js')(app);
 require('./routes')(app);

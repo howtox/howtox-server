@@ -50,17 +50,6 @@ dockerCon.index = function(req, res){
   res.end('docker index');
 };
 
-// exports.create = function(req, res){
-//   dockerAdmin
-//     .createContainerPro()
-//     .then(function(data){
-//       resWrite(req, res, data);
-//     })
-//     .catch(function(err){
-//       resWrite(req, res, err);
-//     });
-// };
-
 dockerCon.stop = function(req, res){
   console.log('stop in routes');
   dockerAdmin
