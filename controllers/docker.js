@@ -1,4 +1,4 @@
-var pexec = require('../utils/pexec').pexec,
+var pexec = require('../utils/command_line').pexec,
   redisCon = require('./redis_con'),
   dockerAdmin = require('./docker_admin'),
   angularAngularPhonecat = require('./angular_angular_phonecat'),
@@ -17,25 +17,33 @@ redisCon.stopCallback(function(data){
 
 dockerCon.create = function(req, res){
   var repo = req.body && req.body.repo;
-  var promise;
+  var dfd = Q.defer();
   switch(repo){
     case 'angular/angular-phonecat':
       console.log('angular');
-      promise = angularAngularPhonecat.createAngular(req, res);
+      dfd = angularAngularPhonecat.createAngular(req, res);
       break;
     case 'chjj/tty.js':
       console.log('tty');
-      promise = chjjTtyjs.createTty(req, res);
+      dfd = chjjTtyjs.createTty(req, res);
       break;
     case 'mikeal/request':
       console.log(repo);
-      promise = repoFactory.createFactory[repo](req, res);
+      dfd = repoFactory.createFactory[repo](req, res);
       break;
     default:
       console.log('default repo');
+      dfd.reject();
       break;
   }
-  return promise;
+  
+  dfd
+    .then(function(data){
+      resWrite(req, res, data);
+    })
+    .catch(function(data){
+      resWrite(req, res, data);
+    });
 };
 
 dockerCon.index = function(req, res){
