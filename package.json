@@ -12,6 +12,7 @@
     "underscore": "^1.6.0",
     "redis": "^0.10.1",
     "express-hbs": "*",
-    "analytics-node": "*"
+    "analytics-node": "*",
+    "dockerode": "*"
   }
 }
