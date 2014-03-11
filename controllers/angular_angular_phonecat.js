@@ -10,6 +10,7 @@ var getCommand = function(gitTag){
   var command = 'docker run -d '+
   ' -p ' + randomPort +':3131'+
   ' -p ' + (randomPort+1) +':8000 '+
+  ' -p ' + (randomPort+2) +':8001 '+
   ' -e TAG=' + gitTag +
   ' angular/angular-phonecat';
 
