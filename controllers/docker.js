@@ -2,6 +2,7 @@ var pexec = require('../utils/command_line').pexec,
   redisCon = require('./redis_con'),
   dockerAdmin = require('./docker_admin'),
   angularAngularPhonecat = require('./angular_angular_phonecat'),
+  phaser = require('./shaohua_phaser_101'),
   chjjTtyjs = require('./chjj_tty_js'),
   repoFactory = require('./repo_factory.js'),
   resWrite = require('../utils/res_write'),
@@ -22,6 +23,10 @@ dockerCon.create = function(req, res){
     case 'angular/angular-phonecat':
       console.log('angular');
       dfd = angularAngularPhonecat.createAngular(req, res);
+      break;
+    case 'shaohua/phaser-101':
+      console.log('phaser');
+      dfd = phaser.create(req, res);
       break;
     case 'chjj/tty.js':
       console.log('tty');
