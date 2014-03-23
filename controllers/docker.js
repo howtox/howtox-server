@@ -33,10 +33,10 @@ dockerCon.create = function(req, res){
       dfd = chjjTtyjs.createTty(req, res);
       break;
     case 'mikeal/request':
-      dfd = repoFactory.createFactory[repo](req, res);
-      break;
     case 'daviferreira/medium-editor':
-      dfd = repoFactory.createFactory[repo](req, res);
+    case 'jakiestfu/medium.js':
+    case 'base_case':
+      dfd = repoFactory.createFactory['base_case'](req, res);
       break;
     default:
       console.log('default repo');

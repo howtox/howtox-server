@@ -46,7 +46,7 @@ repoFactory.createFactory['mikeal/request'] = function(req, res){
   return dfd.promise;
 };
 
-repoFactory.createFactory['daviferreira/medium-editor'] = function(req, res){
+repoFactory.createFactory['base_case'] = function(req, res){
   var dfd = Q.defer();
   var repo = req.body && req.body.repo;
   var cmd = req.body && req.body.cmd;
