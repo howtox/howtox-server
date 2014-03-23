@@ -51,7 +51,7 @@ repoFactory.createFactory['daviferreira/medium-editor'] = function(req, res){
   var repo = req.body && req.body.repo;
   var cmd = req.body && req.body.cmd;
 
-  var commandObj = getCommandFactoryTwoPorts(repo, cmd);
+  var commandObj = getCommandFactoryPorts(repo, cmd);
   pexec(commandObj.command)
     .then(function(data){
       redisCon.register(data);
