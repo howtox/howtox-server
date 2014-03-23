@@ -35,6 +35,9 @@ dockerCon.create = function(req, res){
     case 'mikeal/request':
     case 'daviferreira/medium-editor':
     case 'jakiestfu/medium.js':
+    case 'tholman/zenpen':
+    case 'mduvall/grande.js':
+    case 'sofish/pen':
     case 'base_case':
       dfd = repoFactory.createFactory['base_case'](req, res);
       break;
