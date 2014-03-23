@@ -16,13 +16,13 @@ var getCommandFactory = function(repo, cmd){
   };
 };
 
-var getCommandFactoryTwoPorts = function(repo, cmd){
+var getCommandFactoryPorts = function(repo, cmd){
   var randomPort = getNewPort();
   var command = 'docker run -d '+
   ' -p ' + randomPort +':3131 '+  //editor
-  ' -p ' + randomPort +':8000 '+  //terminal
-  ' ' + repo + ' ' +
-  ' node ' + cmd;
+  ' -p ' + (randomPort+1) +':3132 '+  //web server
+  ' -p ' + (randomPort+2) +':3133 '+  //terminal
+  ' ' + repo;
 
   return {
     command: command,
