@@ -16,6 +16,20 @@ var getCommandFactory = function(repo, cmd){
   };
 };
 
+var getCommandFactoryTwoPorts = function(repo, cmd){
+  var randomPort = getNewPort();
+  var command = 'docker run -d '+
+  ' -p ' + randomPort +':3131 '+  //editor
+  ' -p ' + randomPort +':8000 '+  //terminal
+  ' ' + repo + ' ' +
+  ' node ' + cmd;
+
+  return {
+    command: command,
+    port: randomPort
+  };
+};
+
 repoFactory.createFactory = {};
 repoFactory.createFactory['mikeal/request'] = function(req, res){
   var dfd = Q.defer();
@@ -23,6 +37,21 @@ repoFactory.createFactory['mikeal/request'] = function(req, res){
   var cmd = req.body && req.body.cmd;
 
   var commandObj = getCommandFactory(repo, cmd);
+  pexec(commandObj.command)
+    .then(function(data){
+      redisCon.register(data);
+      dfd.resolve(_.extend({containerId: data}, commandObj));
+    });
+
+  return dfd.promise;
+};
+
+repoFactory.createFactory['daviferreira/medium-editor'] = function(req, res){
+  var dfd = Q.defer();
+  var repo = req.body && req.body.repo;
+  var cmd = req.body && req.body.cmd;
+
+  var commandObj = getCommandFactoryTwoPorts(repo, cmd);
   pexec(commandObj.command)
     .then(function(data){
       redisCon.register(data);

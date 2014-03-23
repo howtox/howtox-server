@@ -19,21 +19,23 @@ redisCon.stopCallback(function(data){
 dockerCon.create = function(req, res){
   var repo = req.body && req.body.repo;
   var dfd = Q.defer();
+
+  console.log('repo', repo);
+
   switch(repo){
     case 'angular/angular-phonecat':
-      console.log('angular');
       dfd = angularAngularPhonecat.createAngular(req, res);
       break;
     case 'shaohua/phaser-101':
-      console.log('phaser');
       dfd = phaser.create(req, res);
       break;
     case 'chjj/tty.js':
-      console.log('tty');
       dfd = chjjTtyjs.createTty(req, res);
       break;
     case 'mikeal/request':
-      console.log(repo);
+      dfd = repoFactory.createFactory[repo](req, res);
+      break;
+    case 'daviferreira/medium-editor':
       dfd = repoFactory.createFactory[repo](req, res);
       break;
     default:
