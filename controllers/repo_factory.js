@@ -31,20 +31,6 @@ var getCommandFactoryPorts = function(repo, cmd){
 };
 
 repoFactory.createFactory = {};
-repoFactory.createFactory['mikeal/request'] = function(req, res){
-  var dfd = Q.defer();
-  var repo = req.body && req.body.repo;
-  var cmd = req.body && req.body.cmd;
-
-  var commandObj = getCommandFactory(repo, cmd);
-  pexec(commandObj.command)
-    .then(function(data){
-      redisCon.register(data);
-      dfd.resolve(_.extend({containerId: data}, commandObj));
-    });
-
-  return dfd.promise;
-};
 
 repoFactory.createFactory['base_case'] = function(req, res){
   var dfd = Q.defer();
