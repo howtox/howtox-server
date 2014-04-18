@@ -1,7 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
 body {
-  padding: 50px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-a {
-  color: #00b7ff;
+iframe {
+  width: 100%;
+  overflow: hidden;
+}
+.editor {
+  height: 70%;
+}
+.terminal {
+  height: 30%;
 }
