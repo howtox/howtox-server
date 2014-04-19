@@ -16,11 +16,17 @@ frontendCon.getBox = function(req, res){
   });
 };
 
+//check whether the image exist locally
+//docker images | grep imageName
+var imageExist = function(imageName){
+  return true;
+};
+
 frontendCon.launchRepo = function(req, res){
   var githubUser = req && req.params && req.params.githubUser;
   var githubRepo = req && req.params && req.params.githubRepo;
   var fullName = githubUser + '/' + githubRepo;
-  if(true){
+  if( imageExist(fullName) ){
     //docker image exist, pass
   } else {
     //create image
