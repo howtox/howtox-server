@@ -15,3 +15,17 @@ frontendCon.getBox = function(req, res){
     terminalSrc: terminalSrc
   });
 };
+
+frontendCon.launchRepo = function(req, res){
+  var githubUser = req && req.params && req.params.githubUser;
+  var githubRepo = req && req.params && req.params.githubRepo;
+  var fullName = githubUser + '/' + githubRepo;
+  if(true){
+    //docker image exist, pass
+  } else {
+    //create image
+  }
+
+  //launch image
+  res.end('launchRepo' + fullName);
+};
