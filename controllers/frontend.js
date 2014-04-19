@@ -22,16 +22,24 @@ var imageExist = function(imageName){
   return true;
 };
 
-frontendCon.launchRepo = function(req, res){
-  var githubUser = req && req.params && req.params.githubUser;
-  var githubRepo = req && req.params && req.params.githubRepo;
-  var fullName = githubUser + '/' + githubRepo;
-  if( imageExist(fullName) ){
+var findOrCreateImage = function(imageName){
+  if( imageExist(imageName) ){
     //docker image exist, pass
   } else {
     //create image
   }
+};
+
+
+frontendCon.launchRepo = function(req, res){
+  var githubUser = req && req.params && req.params.githubUser;
+  var githubRepo = req && req.params && req.params.githubRepo;
+  var fullName = githubUser + '/' + githubRepo;
+
+  findOrCreateImage(fullName);
 
   //launch image
-  res.end('launchRepo' + fullName);
+  res.render('launch', {
+    fullName: fullName
+  });
 };

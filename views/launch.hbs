@@ -1,0 +1,19 @@
+{{!< default}}
+<h3>Starting your container now</h3>
+{{fullName}}
+
+
+
+<script type="text/javascript">
+  //inline javascript from server side
+  var navToBox = function(boxUrl){
+    if(~location.search.indexOf('debug')){
+      return;
+    }
+    window.location = '//'+ boxUrl ;
+  };
+  setTimeout(function(){
+    console.log('setTimeout');
+    // navToBox('localhost');
+  }, 1000);
+</script>
