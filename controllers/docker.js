@@ -43,10 +43,11 @@ dockerCon.create = function(req, res){
       break;
     default:
       console.log('default repo');
-      dfd.reject();
+      dfd = repoFactory.createFactory['base_case'](req, res);
+      // dfd.reject();
       break;
   }
-  
+
   dfd
     .then(function(data){
       // resWrite(req, res, data);
