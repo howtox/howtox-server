@@ -8,7 +8,7 @@ var controllers = module.exports = {};
 var build = function(options){
   console.log('build', options);
   var imageName = options.userName + '/' + options.repoName;
-  var cmd = 'docker build . -t ' + imageName;
+  var cmd = 'docker build -t ' + imageName + ' .';
   pexec(cmd, {
     cwd: path.join(__dirname, '..' ,'/temp', options.repoName)
   });
