@@ -1,3 +1,5 @@
+var buildImage = require('./docker_build_image').buildImage;
+
 var frontendCon = module.exports = {};
 
 frontendCon.index = function(req, res){
@@ -19,7 +21,7 @@ frontendCon.getBox = function(req, res){
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return true;
+  return false;
 };
 
 var findOrCreateImage = function(imageName){
@@ -27,6 +29,7 @@ var findOrCreateImage = function(imageName){
     //docker image exist, pass
   } else {
     //create image
+    buildImage(imageName);
   }
 };
 
