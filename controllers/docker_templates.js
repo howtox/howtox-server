@@ -1,11 +1,12 @@
-var fs = require('fs'),
+var fs = require('fs-extra'),
   path = require('path'),
   Handlebars = require('handlebars');
 
 var Templates = module.exports = {};
 
 var copyFiles = function(){
-
+  fs.copySync(path.join(__dirname, '../docker_templates'),
+    path.join(__dirname, '../temp'));
 };
 
 var updateDockerFile = function(){
