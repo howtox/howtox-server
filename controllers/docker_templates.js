@@ -55,9 +55,9 @@ var updateSupervisordFile = function(repoName){
   fs.writeFileSync(absOutputPath + '/srv/howtox/supervisord.conf', output, {encoding: 'utf8'});
 };
 
-Templates.node = function(){
-  var userName = 'LearnBoost';
-  var repoName = 'socket.io';
+Templates.node = function(options){
+  var userName = options.userName;
+  var repoName = options.repoName;
   deleteAndCreateFolder(repoName);
   // deleteFiles();
   copyFiles(repoName);

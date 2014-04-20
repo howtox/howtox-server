@@ -5,15 +5,16 @@ var _ = require('underscore'),
 
 var controllers = module.exports = {};
 
-var build = function(imageName){
-  console.log('build', imageName);
+var build = function(options){
+  console.log('build', options);
+  var imageName = options.userName + '/' + options.repoName;
   var cmd = 'docker build . -t ' + imageName;
   pexec(cmd, {
-    cwd: path.join(__dirname, '..' ,'/temp')
+    cwd: path.join(__dirname, '..' ,'/temp', options.repoName)
   });
 };
 
-controllers.buildImage = function(imageName){
-  templates.node(imageName);
-  build(imageName);
+controllers.buildImage = function(options){
+  templates.node(options);
+  build(options);
 };

@@ -4,5 +4,9 @@ var DockerCon = require('./docker_build_image');
 
 controllers.test = function(){
   console.log('test');
-  DockerCon.buildImage('LearnBoost/socket.io');
+  var options = {
+    userName: 'LearnBoost',
+    repoName: 'socket.io'
+  };
+  DockerCon.buildImage(options);
 };
