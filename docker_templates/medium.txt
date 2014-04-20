@@ -3,7 +3,6 @@ FROM howtox/node_base
 
 RUN apt-get -y install python-setuptools
 
-{{preBuildHook}}
 # Need make
 RUN apt-get install -y build-essential
 
@@ -18,6 +17,8 @@ ENV HOME /root
 WORKDIR /root
 
 # Add scripts
+{{preBuildHook}}
 ADD ./root /root
 ADD ./srv /srv
 RUN chmod +x /srv/howtox/docker_start.sh
+{{postBuildHook}}
