@@ -1,5 +1,5 @@
 var buildImage = require('./docker_build_image').buildImage;
-
+var redisRegularCon = require('./redis_regular_con');
 var frontendCon = module.exports = {};
 
 frontendCon.index = function(req, res){
@@ -21,7 +21,9 @@ frontendCon.getBox = function(req, res){
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return false;
+  return redisRegularCon.checkImageExist(imageName);
+  //promise
+  //probably not a good idea
 };
 
 var findOrCreateImage = function(imageName){
