@@ -1,4 +1,6 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+  fs = require('fs'),
+  path = require('path');
 var buildImage = require('./docker_build_image').buildImage;
 var frontendCon = module.exports = {};
 var dockerImages = require('../docker_config/image_list.json');
@@ -24,6 +26,13 @@ var imageExist = function(imageName){
   return _.contains(dockerImages, imageName);
 };
 
+var createImage = function(imageName){
+  var oldImages = dockerImages; //get a local reference
+  oldImages.push(imageName);
+  var configPath = path.join(__dirname, '../docker_config');
+  fs.writeFileSync(configPath + '/image_list.json', JSON.stringify(oldImages), 'utf8');
+};
+
 var findOrCreateImage = function(imageName){
   if( imageExist(imageName) ){
     console.log('exist');
@@ -31,6 +40,7 @@ var findOrCreateImage = function(imageName){
   } else {
     console.log('Not exist');
     //create image
+    createImage(imageName);
     // buildImage(imageName);
   }
 };
