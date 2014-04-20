@@ -4,6 +4,7 @@ var _ = require('underscore'),
 var buildImage = require('./docker_build_image').buildImage;
 var frontendCon = module.exports = {};
 var dockerImages = require('../docker_config/image_list.json');
+var dockerCon = require('./docker');
 frontendCon.index = function(req, res){
   res.end('index');
 };
@@ -53,8 +54,11 @@ frontendCon.launchRepo = function(req, res){
 
   findOrCreateImage(fullName);
 
+  req.body = {};
+  req.body.repo = fullName;
+  dockerCon.create(req, res);
   //launch image
-  res.render('launch', {
-    fullName: fullName
-  });
+  // res.render('launch', {
+  //   fullName: fullName
+  // });
 };

@@ -2,9 +2,12 @@
 <h3>Starting your container now</h3>
 {{fullName}}
 
-
+{{data}}
 
 <script type="text/javascript">
+  var port = {{port}};
+  var boxUrl = 'da.howtox.com:' + port;
+
   //inline javascript from server side
   var navToBox = function(boxUrl){
     if(~location.search.indexOf('debug')){
@@ -14,6 +17,6 @@
   };
   setTimeout(function(){
     console.log('setTimeout');
-    // navToBox('localhost');
-  }, 1000);
+    navToBox(boxUrl);
+  }, 5000);
 </script>

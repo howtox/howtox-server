@@ -49,7 +49,12 @@ dockerCon.create = function(req, res){
   
   dfd
     .then(function(data){
-      resWrite(req, res, data);
+      // resWrite(req, res, data);
+      res.render('launch', {
+        fullName: req.body.repo,
+        data: JSON.stringify(data),
+        port: data.port
+      });
     })
     .catch(function(data){
       resWrite(req, res, data);
