@@ -10,7 +10,7 @@ module.exports = function(app) {
   app.set('view engine', 'hbs');
   app.set('views', path.join(__dirname, '..', '/views'));
 
-  app.use(express.favicon( path.join(__dirname, 'public/images/favicon.ico') ));
+  app.use(express.favicon( path.join(__dirname, '..' ,'/public/images/favicon.ico') ));
   app.use(express.logger('dev'));
 
   app.use(express.json());
