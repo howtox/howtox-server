@@ -3,8 +3,10 @@ var _ = require('underscore'),
   path = require('path');
 var buildImage = require('./docker_build_image').buildImage;
 var frontendCon = module.exports = {};
-var dockerImages = require('../docker_config/image_list.json');
 var dockerCon = require('./docker');
+
+var findOrCreateImage = require('./find_or_create_image');
+
 frontendCon.index = function(req, res){
   res.end('index');
 };
@@ -20,32 +22,6 @@ frontendCon.getBox = function(req, res){
     terminalSrc: terminalSrc
   });
 };
-
-//check whether the image exist locally
-//docker images | grep imageName
-var imageExist = function(imageName){
-  return _.contains(dockerImages, imageName);
-};
-
-var createImage = function(imageName){
-  var oldImages = dockerImages; //get a local reference
-  oldImages.push(imageName);
-  var configPath = path.join(__dirname, '../docker_config');
-  fs.writeFileSync(configPath + '/image_list.json', JSON.stringify(oldImages), 'utf8');
-};
-
-var findOrCreateImage = function(imageName){
-  if( imageExist(imageName) ){
-    console.log('exist');
-    //docker image exist, pass
-  } else {
-    console.log('Not exist');
-    //create image
-    createImage(imageName);
-    // buildImage(imageName);
-  }
-};
-
 
 frontendCon.launchRepo = function(req, res){
   var githubUser = req && req.params && req.params.githubUser;
