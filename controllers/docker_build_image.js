@@ -4,7 +4,8 @@ var _ = require('underscore'),
 
 var controllers = module.exports = {};
 
-var build = function(){
+var build = function(imageName){
+  console.log('build', imageName);
   pexec('docker build .');
 };
 
