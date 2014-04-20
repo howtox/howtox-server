@@ -7,12 +7,13 @@ var controllers = module.exports = {};
 
 var build = function(imageName){
   console.log('build', imageName);
-  pexec('docker build .', {
+  var cmd = 'docker build . -t ' + imageName;
+  pexec(cmd, {
     cwd: path.join(__dirname, '..' ,'/temp')
   });
 };
 
 controllers.buildImage = function(imageName){
-  templates.node();
-  build();
+  templates.node(imageName);
+  build(imageName);
 };
