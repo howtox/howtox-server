@@ -3,7 +3,7 @@ var redis = require('redis'),
 
 // redisCon.subClient = redis.createClient();
 // redisCon.pubClient = redis.createClient();
-
+//http://stackoverflow.com/questions/7290118/connecting-to-redistogo-through-node-js
 redisCon.subClient = redis.createClient(10310,
   "pub-redis-10310.us-east-1-4.1.ec2.garantiadata.com");
 redisCon.subClient.auth("8BnAVVcUwskP", function(){
