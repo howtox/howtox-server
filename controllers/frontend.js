@@ -1,7 +1,7 @@
+var _ = require('underscore');
 var buildImage = require('./docker_build_image').buildImage;
-var redisRegularCon = require('./redis_regular_con');
 var frontendCon = module.exports = {};
-
+var dockerImages = require('../docker_config/image_list.json');
 frontendCon.index = function(req, res){
   res.end('index');
 };
@@ -21,17 +21,17 @@ frontendCon.getBox = function(req, res){
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return redisRegularCon.checkImageExist(imageName);
-  //promise
-  //probably not a good idea
+  return _.contains(dockerImages, imageName);
 };
 
 var findOrCreateImage = function(imageName){
   if( imageExist(imageName) ){
+    console.log('exist');
     //docker image exist, pass
   } else {
+    console.log('Not exist');
     //create image
-    buildImage(imageName);
+    // buildImage(imageName);
   }
 };
 
