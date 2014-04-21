@@ -7,7 +7,8 @@ var _ = require('underscore'),
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return _.contains(dockerImages, imageName);
+  return true;
+  // return _.contains(dockerImages, imageName);
 };
 
 var addImageName = function(imageName){
