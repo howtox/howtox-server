@@ -3,7 +3,7 @@ var _ = require('underscore'),
   path = require('path');
 var buildImage = require('./docker_build_image').buildImage;
 var frontendCon = module.exports = {};
-var dockerCon = require('./docker');
+var dockerCon = require('./docker_con');
 
 var findOrCreateImage = require('./find_or_create_image');
 
