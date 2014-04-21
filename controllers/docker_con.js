@@ -66,48 +66,9 @@ dockerCon.create = function(req, res){
 
 dockerCon.createImage = function(req, res){
   //launch image
-  // res.render('launch_wait_for_image', {
-  //   fullName: req.body.repo
-  // });
-  var githubUser = req && req.params && req.params.githubUser;
-  var githubRepo = req && req.params && req.params.githubRepo;  
-  var imageName = githubUser + '/' + githubRepo;
-  // var cmd = 'docker build -t ' + imageName + ' .';
-
-  //http://stackoverflow.com/questions/20357216/stream-stdout-from-child-process-to-browser-via-expressjs
-  var child = spawn('docker', ['build', '-no-cache', '-t', imageName, '.'],  {
-    cwd: path.join(__dirname, '..' ,'/temp')
+  res.render('launch_wait_for_image', {
+    fullName: req.body.repo
   });
-  
-  //the pipe way
-  // child.stdout.pipe(res);
-  
-  //the event way
-  //http://stackoverflow.com/questions/9751711/streaming-http-responses-with-nodejs
-  // res.set('Content-Type', 'application/json');
-  //http://stackoverflow.com/questions/6258210/how-can-i-output-data-before-i-end-the-response
-
-  //http://stackoverflow.com/questions/6068820/node-js-problems-with-response-write/6071107
-
-  //method 1
-  //does NOT work for Chrome
-  //works for Firefox
-  // res.writeHead(200, {'Content-Type': 'text/plain'}); 
-
-  //method2
-  //does NOT work for Chrome
-  res.setHeader('Connection', 'Transfer-Encoding');
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Transfer-Encoding', 'chunked');
-  
-  //method3
-  //does NOT work for Chrome
-  var largeArray = _.times(1000,function(){return 'Hello';});
-  res.write(largeArray.join('-'));
-  _.times(1000,function(){res.write('Hello');});
-  
-  child.stdout.on( 'data', function(chunk) { res.write(chunk); } );
-  child.stdout.on( 'end', function() { res.end(); } );
 };
 
 dockerCon.index = function(req, res){

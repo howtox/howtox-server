@@ -11,7 +11,7 @@
     console.log(data);
     
     //too hacky
-    //socket.emit('buildimage', { my: 'data' });
+    socket.emit('buildimage', { my: 'data' });
   });
   
   socket.on('toClient', function (data) {
