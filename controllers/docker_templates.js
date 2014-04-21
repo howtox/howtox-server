@@ -9,8 +9,17 @@ var _getRepoPath = function(repoName){
 };
 
 var deleteAndCreateFolder = function(repoName){
-  fs.removeSync(_getRepoPath(repoName));
-  fs.mkdirsSync(_getRepoPath(repoName));
+  try {
+    fs.removeSync(_getRepoPath(repoName));
+  } catch(e) {
+    console.log('removeSync' + repoName + 'failed' + e);
+  }
+
+  try {
+    fs.mkdirsSync(_getRepoPath(repoName));
+  } catch(e) {
+    console.log('mkdirsSync' + repoName + 'failed' + e);
+  }
 };
 
 var deleteFiles = function(){
