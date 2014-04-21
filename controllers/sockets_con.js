@@ -9,7 +9,7 @@ var controllers = module.exports = function (socket) {
     
     buildImage('howtox/node_c9_tty_supervisord')
       .then(function(data){
-          socket.emit('toClient', JSON.stringify({ hello: 'buildimage finished' + data }));
+          socket.emit('toClient', JSON.stringify({ hello: 'buildimage finished! ' + data }));
       });
   });
 }
