@@ -28,11 +28,13 @@ frontendCon.launchRepo = function(req, res){
   var githubRepo = req && req.params && req.params.githubRepo;
   var fullName = githubUser + '/' + githubRepo;
 
-  findOrCreateImage(fullName);
+  findOrCreateImage(fullName)
+    .then(function(){
+      req.body = {};
+      req.body.repo = fullName;
+      dockerCon.create(req, res);
+    });
 
-  req.body = {};
-  req.body.repo = fullName;
-  dockerCon.create(req, res);
   //launch image
   // res.render('launch', {
   //   fullName: fullName

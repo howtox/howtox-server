@@ -1,6 +1,6 @@
 var pexec = require('../utils/command_line').pexec,
   redisCon = require('./redis_con'),
-  dockerAdmin = require('./docker_admin'),
+  dockerUtils = require('./docker_utils'),
   angularAngularPhonecat = require('./angular_angular_phonecat'),
   phaser = require('./shaohua_phaser_101'),
   chjjTtyjs = require('./chjj_tty_js'),
@@ -11,7 +11,7 @@ var pexec = require('../utils/command_line').pexec,
 //redis kills container after 15 minutes
 redisCon.stopCallback(function(data){
   console.log('cb', data);
-  dockerAdmin.stopOne(data).then(function(output){
+  dockerUtils.stopOne(data).then(function(output){
     console.log('stop success', output);
   });
 });
@@ -68,7 +68,7 @@ dockerCon.index = function(req, res){
 
 dockerCon.stop = function(req, res){
   console.log('stop in routes');
-  dockerAdmin
+  dockerUtils
     .stopAllPro()
     .then(function(){
       resWrite(req, res, {step:'stop'});

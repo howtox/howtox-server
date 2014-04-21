@@ -1,6 +1,5 @@
-var getNewPort = require('./docker_admin').getNewPort,
+var getNewPort = require('./docker_utils').getNewPort,
   pexec = require('../utils/command_line').pexec,
-  getNewPort = require('./docker_admin').getNewPort,
   redisCon = require('./redis_con'),
   phaser = module.exports = {};
 

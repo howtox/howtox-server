@@ -1,5 +1,5 @@
 var pexec = require('../utils/command_line').pexec,
-  getNewPort = require('./docker_admin').getNewPort,
+  getNewPort = require('./docker_utils').getNewPort,
   redisCon = require('./redis_con'),
   repoFactory = module.exports = {};
 
