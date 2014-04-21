@@ -20,6 +20,4 @@ server.listen(app.get('port'), function(){
 
 var io = require("socket.io").listen(server);
 io.set('log level', 1); // reduce logging
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-});
+io.sockets.on('connection', require('./controllers/sockets_con'));
