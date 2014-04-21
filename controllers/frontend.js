@@ -15,7 +15,7 @@ frontendCon.getBox = function(req, res){
   var boxId = req && req.params && req.params.id;
   var domain = 'http://da.howtox.com:';
   var editorSrc = domain + boxId;
-  var terminalSrc = domain + (parseInt(boxId, 10) + 2);
+  var terminalSrc = domain + (parseInt(boxId, 10) + 1);
   // res.end('index' + boxId);
   res.render('box_iframe', {
     editorSrc: editorSrc,
