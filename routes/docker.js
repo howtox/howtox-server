@@ -10,4 +10,6 @@ module.exports = function(app){
 
   app.get('/docker/containers/stop', dockerCon.stop);
   app.get('/docker/containers/stop/', dockerCon.stop);
+  
+  // app.get('/docker/images/create', dockerCon.createImage);
 };

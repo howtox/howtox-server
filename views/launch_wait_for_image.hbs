@@ -9,5 +9,8 @@
   var socket = io.connect();
   socket.on('news', function (data) {
     console.log(data);
+    
+    //too hacky
+    socket.emit('buildimage', { my: 'data' });
   });
 </script>
