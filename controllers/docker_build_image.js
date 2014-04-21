@@ -14,7 +14,11 @@ var build = function(options){
   });
 };
 
-controllers.buildImage = function(options){
+controllers.buildImage = function(imageName){
+  var options = {
+    userName: imageName.split('/')[0],
+    repoName: imageName.split('/')[1]
+  };
   templates.node(options);
   build(options);
 };
