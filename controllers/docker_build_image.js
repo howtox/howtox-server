@@ -1,5 +1,4 @@
-var _ = require('underscore'),
-  pexec = require('../utils/command_line').pexec,
+var pexec = require('../utils/command_line').pexec,
   path = require('path'),
   templates = require('./docker_templates');
 
@@ -8,8 +7,8 @@ var controllers = module.exports = {};
 var build = function(options){
   console.log('build', options);
   var imageName = options.userName + '/' + options.repoName;
-  var cmd = 'docker build -t ' + imageName + ' .';
-  pexec(cmd, {
+  // var cmd = 'docker build -t ' + imageName + ' .';
+  return pexec('ls', {
     cwd: path.join(__dirname, '..' ,'/temp', options.repoName)
   });
 };
@@ -20,5 +19,5 @@ controllers.buildImage = function(imageName){
     repoName: imageName.split('/')[1]
   };
   templates.node(options);
-  build(options);
+  return build(options);
 };

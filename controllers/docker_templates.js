@@ -47,7 +47,7 @@ var updateDockerFile = function(repoName){
   var absOutputPath = _getRepoPath(repoName);
   fs.writeFileSync(absOutputPath + '/Dockerfile', output, {encoding: 'utf8'});
 
-  console.log('medium', output);
+  // console.log('medium', output);
 };
 
 var updateSupervisordFile = function(repoName){

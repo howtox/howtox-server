@@ -13,4 +13,8 @@
     //too hacky
     socket.emit('buildimage', { my: 'data' });
   });
+  
+  socket.on('toClient', function (data) {
+    console.log('toClient' + data);
+  });
 </script>
