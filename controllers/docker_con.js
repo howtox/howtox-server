@@ -1,4 +1,6 @@
 var pexec = require('../utils/command_line').pexec,
+  path = require('path'),
+  spawn = require('child_process').spawn,
   redisCon = require('./redis_con'),
   dockerUtils = require('./docker_utils'),
   angularAngularPhonecat = require('./angular_angular_phonecat'),
@@ -64,9 +66,18 @@ dockerCon.create = function(req, res){
 
 dockerCon.createImage = function(req, res){
   //launch image
-  res.render('launch_wait_for_image', {
-    fullName: req.body.repo
+  // res.render('launch_wait_for_image', {
+  //   fullName: req.body.repo
+  // });
+  var githubUser = req && req.params && req.params.githubUser;
+  var githubRepo = req && req.params && req.params.githubRepo;  
+  var imageName = githubUser + '/' + githubRepo;
+  // var cmd = 'docker build -t ' + imageName + ' .';
+  //http://stackoverflow.com/questions/20357216/stream-stdout-from-child-process-to-browser-via-expressjs
+  var child = spawn('docker', ['build', '-t', imageName, '.'],  {
+    cwd: path.join(__dirname, '..' ,'/temp')
   });
+  child.stdout.pipe(res);
 };
 
 dockerCon.index = function(req, res){
