@@ -62,6 +62,13 @@ dockerCon.create = function(req, res){
     });
 };
 
+dockerCon.createImage = function(req, res){
+  //launch image
+  res.render('launch_wait_for_image', {
+    fullName: req.body.repo
+  });
+};
+
 dockerCon.index = function(req, res){
   res.end('docker index');
 };

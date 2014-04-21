@@ -6,7 +6,7 @@ var fs = require('fs'),
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return true;
+  return false;
   // return _.contains(dockerImages, imageName);
 };
 
@@ -31,12 +31,12 @@ var findOrCreateImage = module.exports = function(imageName){
   if( imageExist(imageName) ){
     //docker image exist, pass
     console.log('exist');
-    dfd.resolve();
+    dfd.resolve('find');
   } else {
     //create image
     console.log('Not exist');
-    createImage(imageName);
-    // dfd.resolve();
+    // createImage(imageName);
+    dfd.resolve('create');
   }
 
   return dfd.promise;
