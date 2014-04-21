@@ -18,7 +18,8 @@ server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port') + ' in env: ' + app.get('env') );
 });
 
-var io = require("socket.io").listen(server)
+var io = require("socket.io").listen(server);
+io.set('log level', 1); // reduce logging
 io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
 });
