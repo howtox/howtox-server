@@ -1,4 +1,4 @@
-var frontend    = require('../controllers/frontend');
+var frontend    = require('../controllers/frontend_con');
 var testCon    = require('../controllers/test_con');
 
 module.exports = function (app) {
