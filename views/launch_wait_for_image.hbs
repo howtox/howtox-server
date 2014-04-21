@@ -4,6 +4,10 @@
 <h3>It is going to take a while</h3>
 {{fullName}}
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script type="text/javascript">
-
+  var socket = io.connect();
+  socket.on('news', function (data) {
+    console.log(data);
+  });
 </script>
