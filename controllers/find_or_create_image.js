@@ -1,5 +1,4 @@
-var _ = require('underscore'),
-  fs = require('fs'),
+var fs = require('fs'),
   path = require('path'),
   buildImage = require('./docker_build_image').buildImage,
   dockerImages = require('../docker_config/image_list.json');
@@ -27,12 +26,18 @@ var createImage = function(imageName){
 };
 
 var findOrCreateImage = module.exports = function(imageName){
+  var dfd = Q.defer();
+
   if( imageExist(imageName) ){
     //docker image exist, pass
     console.log('exist');
+    dfd.resolve();
   } else {
     //create image
     console.log('Not exist');
     createImage(imageName);
+    // dfd.resolve();
   }
+
+  return dfd.promise;
 };
