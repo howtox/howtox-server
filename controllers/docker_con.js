@@ -66,6 +66,8 @@ dockerCon.create = function(req, res){
 
 dockerCon.createImage = function(req, res){
   //launch image
+  //client will fire 'buildimage' event
+  //server will respond to the event in 'socket_con.js'
   res.render('launch_wait_for_image', {
     fullName: req.body.repo
   });

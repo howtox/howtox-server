@@ -27,5 +27,4 @@ module.exports = function(app) {
   app.use(require('stylus').middleware(path.join(__dirname, '..', 'public')));
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
-  app.set('port', process.env.PORT || 3000);
 };

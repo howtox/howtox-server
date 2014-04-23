@@ -3,6 +3,7 @@
 <h3>We have to create an image from scratch for you</h3>
 <h3>It is going to take a while</h3>
 {{fullName}}
+<div id="build-logs"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
@@ -15,6 +16,7 @@
   });
   
   socket.on('toClient', function (data) {
-    console.log('toClient' + data);
+    //console.log('toClient' + data);
+    document.getElementById('build-logs').innerHTML += data + '<br>';
   });
 </script>
