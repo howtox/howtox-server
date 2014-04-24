@@ -36,6 +36,7 @@ frontendCon.launchRepo = function(req, res){
   findOrCreateImage(fullName)
     .then(function(state){
       if(state === 'find') {
+        //start container
         dockerCon.create(req, res);
       } else if (state === 'create') {
         dockerCon.createImage(req, res);
