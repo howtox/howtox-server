@@ -7,6 +7,7 @@ var controllers = module.exports = function (socket) {
   
   socket.on('buildimage', function(data){
     console.log('buildimage', data);
+    var imageName = data.imageName;
     socket.emit('toClient', JSON.stringify({ hello: 'buildimage' }));
     
     // buildImage('howtox/node_c9_tty_supervisord')
@@ -15,7 +16,7 @@ var controllers = module.exports = function (socket) {
     //   });
     
     //http://stackoverflow.com/questions/20357216/stream-stdout-from-child-process-to-browser-via-expressjs
-    var child = spawn('docker', ['build', '-t', 'howtox/t1', '.'],  {
+    var child = spawn('docker', ['build', '-t', data, '.'],  {
       cwd: path.join(__dirname, '..' ,'/temp')
     });
     //http://rockycode.com/blog/pipe-stdout-socketio/

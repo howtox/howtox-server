@@ -12,7 +12,7 @@
     console.log(data);
     
     //too hacky
-    socket.emit('buildimage', { my: 'data' });
+    socket.emit('buildimage', { imageName: {{fullName}} });
   });
   
   socket.on('toClient', function (data) {
