@@ -6,13 +6,21 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
+    "express": "~3",
     "stylus": "*",
     "q": "*",
     "underscore": "^1.6.0",
     "redis": "^0.10.1",
     "express-hbs": "*",
     "analytics-node": "*",
-    "dockerode": "*"
+    "dockerode": "*",
+    "fs-extra": "^0.8.1"
+  },
+  "devDependencies": {
+    "handlebars": "^2.0.0-alpha.2",
+    "mocha": "^1.18.2",
+    "chai": "^1.9.1",
+    "q": "^1.0.1",
+    "socket.io": "^0.9.16"
   }
 }

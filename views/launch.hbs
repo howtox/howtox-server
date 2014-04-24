@@ -1,0 +1,22 @@
+{{!< default}}
+<h3>Starting your container now</h3>
+{{fullName}}
+
+{{data}}
+
+<script type="text/javascript">
+  var port = {{port}};
+  var boxUrl = 'da.howtox.com:3000/box/' + port;
+
+  //inline javascript from server side
+  var navToBox = function(boxUrl){
+    if(~location.search.indexOf('debug')){
+      return;
+    }
+    window.location = '//'+ boxUrl ;
+  };
+  //setTimeout(function(){
+    console.log('setTimeout');
+    //navToBox(boxUrl);
+  //}, 5000);
+</script>

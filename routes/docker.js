@@ -1,4 +1,4 @@
-var dockerCon = require('../controllers/docker');
+var dockerCon = require('../controllers/docker_con');
 
 module.exports = function(app){
   app.get('/docker', dockerCon.index);
@@ -10,4 +10,6 @@ module.exports = function(app){
 
   app.get('/docker/containers/stop', dockerCon.stop);
   app.get('/docker/containers/stop/', dockerCon.stop);
+  
+  // app.get('/docker/images/create', dockerCon.createImage);
 };
