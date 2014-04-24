@@ -17,7 +17,7 @@ var controllers = module.exports = function (socket) {
     
     //http://stackoverflow.com/questions/20357216/stream-stdout-from-child-process-to-browser-via-expressjs
     var child = spawn('docker', ['build', '-t', data, '.'],  {
-      cwd: path.join(__dirname, '..' ,'/temp')
+      cwd: path.join(__dirname, '..' ,'/temp', imageName)
     });
     //http://rockycode.com/blog/pipe-stdout-socketio/
     child.stdout.setEncoding('utf-8');
