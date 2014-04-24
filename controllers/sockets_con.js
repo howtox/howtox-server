@@ -3,7 +3,7 @@ var buildImage = require('./docker_build_image').buildImage,
   spawn = require('child_process').spawn;
 
 var controllers = module.exports = function (socket) {
-  socket.emit('news', { hello: 'world' });
+  socket.emit('start', { hello: 'world' });
   
   socket.on('buildimage', function(data){
     console.log('buildimage', data);

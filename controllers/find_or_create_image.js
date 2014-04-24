@@ -6,7 +6,7 @@ var fs = require('fs'),
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return true;
+  return false;
   // return _.contains(dockerImages, imageName);
 };
 

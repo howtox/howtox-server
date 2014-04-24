@@ -1,18 +1,17 @@
 {{!< default}}
-<h3>Starting your container now</h3>
+<h3>Starting your container for {{fullName}} now</h3>
 <h3>We have to create an image from scratch for you</h3>
 <h3>It is going to take a while</h3>
-{{fullName}}
 <div id="build-logs"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+  var imageName = '{{fullName}}';
   var socket = io.connect();
-  socket.on('news', function (data) {
-    console.log(data);
-    
+  socket.on('start', function (data) {
+    console.log('start' + data);
     //too hacky
-    socket.emit('buildimage', { imageName: {{fullName}} });
+    socket.emit('buildimage', { imageName: imageName });
   });
   
   socket.on('toClient', function (data) {
