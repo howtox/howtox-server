@@ -22,7 +22,8 @@ var getCommandFactoryPorts = function(repo, cmd){
   ' -p ' + randomPort +':3131 '+  //editor
   ' -p ' + (randomPort+1) +':3132 '+  //web server
   ' -p ' + (randomPort+2) +':3133 '+  //terminal
-  ' ' + repo;
+  ' ' + repo + 
+  ' /usr/local/bin/supervisord ';
 
   return {
     command: command,
