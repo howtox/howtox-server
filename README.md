@@ -1,2 +1,6 @@
-howtox-server
-=============
+#howtox-server
+
+## Run in production
+```
+  NODE_ENV=production node app.js 
+```

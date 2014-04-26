@@ -1,6 +1,8 @@
 var pexec = require('../utils/command_line').pexec,
+  path = require('path'),
+  spawn = require('child_process').spawn,
   redisCon = require('./redis_con'),
-  dockerAdmin = require('./docker_admin'),
+  dockerUtils = require('./docker_utils'),
   angularAngularPhonecat = require('./angular_angular_phonecat'),
   phaser = require('./shaohua_phaser_101'),
   chjjTtyjs = require('./chjj_tty_js'),
@@ -11,7 +13,7 @@ var pexec = require('../utils/command_line').pexec,
 //redis kills container after 15 minutes
 redisCon.stopCallback(function(data){
   console.log('cb', data);
-  dockerAdmin.stopOne(data).then(function(output){
+  dockerUtils.stopOne(data).then(function(output){
     console.log('stop success', output);
   });
 });
@@ -43,17 +45,32 @@ dockerCon.create = function(req, res){
       break;
     default:
       console.log('default repo');
-      dfd.reject();
+      dfd = repoFactory.createFactory['base_case'](req, res);
+      // dfd.reject();
       break;
   }
-  
+
   dfd
     .then(function(data){
-      resWrite(req, res, data);
+      // resWrite(req, res, data);
+      res.render('launch', {
+        fullName: req.body.repo,
+        data: JSON.stringify(data),
+        port: data.port
+      });
     })
     .catch(function(data){
       resWrite(req, res, data);
     });
+};
+
+dockerCon.createImage = function(req, res){
+  //launch image
+  //client will fire 'buildimage' event
+  //server will respond to the event in 'socket_con.js'
+  res.render('launch_wait_for_image', {
+    fullName: req.body.repo
+  });
 };
 
 dockerCon.index = function(req, res){
@@ -62,7 +79,7 @@ dockerCon.index = function(req, res){
 
 dockerCon.stop = function(req, res){
   console.log('stop in routes');
-  dockerAdmin
+  dockerUtils
     .stopAllPro()
     .then(function(){
       resWrite(req, res, {step:'stop'});

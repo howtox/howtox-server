@@ -1,5 +1,26 @@
-body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-a
-  color: #00B7FF
+* {
+  //todo
+  //use reset.css
+  margin: 0;
+  padding: 0
+}
+html, body {
+  height: 100%;
+  width: 100%;
+//  disable for now
+//  overflow: hidden;
+  border: none;
+}
+iframe {
+  //http://stackoverflow.com/questions/5867985/iframe-auto-100-height
+  //http://stackoverflow.com/questions/13619462/two-iframes-in-one-page-the-2nd-iframe-to-auto-height
+  width: 100%
+  overflow: hidden;
+  border: none;
+}
+.editor {
+  height: 70%;
+}
+.terminal {
+  height: 30%;
+}
