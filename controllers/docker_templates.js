@@ -73,3 +73,22 @@ Templates.completeRegenerate = function(options){
   updateDockerFile(repoName);
   updateSupervisordFile(repoName);
 };
+
+Templates.shortRegenerate = function(options){
+  var userName = options.userName;
+  var repoName = options.repoName;
+  deleteAndCreateFolder(repoName);
+
+  var absPath = path.join(__dirname, '../docker_short_templates') + '/Dockerfile';
+  var dockerfileRawTemplate = fs.readFileSync(absPath, {encoding: 'utf8'});
+  var dockerfileTemplate = Handlebars.compile(dockerfileRawTemplate);
+
+  var output = dockerfileTemplate({
+    userName: userName,
+    repoName: repoName
+  });
+
+  var absOutputPath = _getRepoPath(repoName);
+  fs.writeFileSync(absOutputPath + '/Dockerfile', output, {encoding: 'utf8'});
+
+};
