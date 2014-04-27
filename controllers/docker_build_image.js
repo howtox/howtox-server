@@ -18,6 +18,6 @@ controllers.buildImage = function(imageName){
     userName: imageName.split('/')[0],
     repoName: imageName.split('/')[1]
   };
-  templates.node(options);  //sync
+  templates.completeRegenerate(options);  //sync
   return build(options);
 };
