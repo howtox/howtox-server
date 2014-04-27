@@ -43,9 +43,19 @@ frontendCon.launchRepo = function(req, res){
       }
 
     });
+};
 
-  //launch image
-  // res.render('launch', {
-  //   fullName: fullName
-  // });
+frontendCon.launchRepoNoCheck = function(req, res){
+  var githubUser = req && req.params && req.params.githubUser;
+  var githubRepo = req && req.params && req.params.githubRepo;
+  var fullName = githubUser + '/' + githubRepo;
+
+  //todo
+  //might not be a good idea to mix req body and req params
+  req.body = req.body || {};
+  req.body.repo = fullName;
+
+  //start container
+  dockerCon.create(req, res);
+
 };

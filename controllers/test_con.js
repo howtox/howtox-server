@@ -1,12 +1,15 @@
 var controllers = module.exports = {};
 
-var DockerCon = require('./docker_build_image');
+var testCon = require('./find_or_create_image');
 
-controllers.test = function(){
+controllers.test = function(req, res){
   console.log('test');
   var options = {
     userName: 'LearnBoost',
-    repoName: 'socket.io'
+    repoName: 'socket.io1'
   };
-  DockerCon.buildImage(options);
+  testCon(options.userName + '/' + options.repoName).then(function(data){
+    res.end(data);
+  });
+
 };

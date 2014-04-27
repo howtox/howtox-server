@@ -7,6 +7,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   var imageName = '{{fullName}}';
+
   var socket = io.connect();
   socket.on('start', function (data) {
     console.log('start' + data);
@@ -17,5 +18,10 @@
   socket.on('toClient', function (data) {
     //console.log('toClient' + data);
     document.getElementById('build-logs').innerHTML += data + '<br>';
+  });
+  
+  socket.on('stdout:end', function () {
+    console.log('stdout:end', imageName);
+    window.location = '//da.howtox.com:3000/launch_no_check/' + imageName;
   });
 </script>

@@ -1,13 +1,26 @@
 var fs = require('fs'),
   path = require('path'),
-  buildImage = require('./docker_build_image').buildImage,
-  dockerImages = require('../docker_config/image_list.json');
+  buildImage = require('./docker_build_image').buildImage;
+  
+var dockerImages;
+
+var readImageNames = function(){
+  var filePath = path.join(__dirname, '../docker_config/image_list.json');
+  var fileContent = fs.readFileSync(filePath, "utf8");
+  var output;
+  try {
+    output = JSON.parse(fileContent);
+  } catch (e) {
+    console.log('JSON parse failed', e);
+  }
+  return output;
+};
 
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  return true;
-  // return _.contains(dockerImages, imageName);
+  var dockerImageNames = readImageNames();
+  return _.contains(dockerImageNames, imageName);
 };
 
 var addImageName = function(imageName){

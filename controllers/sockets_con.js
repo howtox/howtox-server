@@ -22,7 +22,12 @@ var controllers = module.exports = function (socket) {
     //http://rockycode.com/blog/pipe-stdout-socketio/
     child.stdout.setEncoding('utf-8');
     
-    child.stdout.on( 'data', function(chunk) { socket.emit('toClient', chunk); } );
+    child.stdout.on('data', function(chunk){ 
+      socket.emit('toClient', chunk); 
+    });
+    child.stdout.on('end', function(){
+      socket.emit('stdout:end');
+    });
   
   });
 }
