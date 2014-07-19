@@ -15,6 +15,7 @@ var imageExist = function(imageName){
     }
     return (count ? dfd.resolve() : dfd.reject());
   });
+  return dfd.promise;
 };
 
 var addImageName = function(imageName){
