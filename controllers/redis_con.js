@@ -7,7 +7,6 @@ var path = require('path'),
 //kills container after 15 minutes
 var stopAll = function(docs){
   _.each(docs, function(doc){
-    console.log('stop doc', doc);
     //   analytics.track({
     //     userId: 'null',
     //     containerId: expiredKey,
@@ -17,6 +16,9 @@ var stopAll = function(docs){
     // dockerUtils.stopOne(doc.id).then(function(output){
     //   console.log('stop success', output);
     // });
+    db.remove(doc, {}, function (err, numRemoved) {
+      console.log('numRemoved', numRemoved);
+    });
   });
 };
 
