@@ -2,7 +2,7 @@ var path = require('path'),
   redisCon = module.exports = {},
   dockerUtils = require('./docker_utils'),
   _ = require('underscore'),
-  db = require('../config/db'); //cached
+  db = require('../config/db').containers; //cached
 
 //kills container after 15 minutes
 var stopAll = function(docs){
