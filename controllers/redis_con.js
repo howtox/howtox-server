@@ -1,45 +1,53 @@
-var redis = require('redis'),
-  redisCon = module.exports = {};
+var path = require('path'),
+  redisCon = module.exports = {},
+  dockerUtils = require('./docker_utils'),
+  _ = require('underscore'),
+  db = require('../config/db'); //cached
 
-redisCon.subClient = redis.createClient();
-redisCon.pubClient = redis.createClient();
-
-//redis cloud does NOT seem to work
-//http://stackoverflow.com/questions/7290118/connecting-to-redistogo-through-node-js
-// redisCon.subClient = redis.createClient(10310,
-//   "pub-redis-10310.us-east-1-4.1.ec2.garantiadata.com");
-// redisCon.subClient.auth("8BnAVVcUwskP", function(){
-//   console.log("subClient Connected!");
-// });
-// redisCon.pubClient = redis.createClient(10310,
-//   "pub-redis-10310.us-east-1-4.1.ec2.garantiadata.com");
-// redisCon.pubClient.auth("8BnAVVcUwskP", function(){
-//   console.log("pubClient Connected!");
-// });
-
-redisCon.subClient.psubscribe('__keyevent@0__:expired');
-
-redisCon.register = function(input){
-  redisCon.pubClient.set(input, 'randomestring', 'EX', 900, redis.print);
-  analytics.track({
-    userId: 'null',
-    containerId: input,
-    event: 'start',
-    time: new Date()
+//kills container after 15 minutes
+var stopAll = function(docs){
+  _.each(docs, function(doc){
+    //   analytics.track({
+    //     userId: 'null',
+    //     containerId: expiredKey,
+    //     event: 'stop',
+    //     time: new Date()
+    //   });
+    // dockerUtils.stopOne(doc.id).then(function(output){
+    //   console.log('stop success', output);
+    // });
+    db.remove(doc, {}, function (err, numRemoved) {
+      console.log('numRemoved', numRemoved);
+    });
   });
-  console.log('redis register');
 };
 
-redisCon.stopCallback = function(cb){
-  redisCon.subClient.on('pmessage', function(pattern, channel, expiredKey){
-    console.log('key expired: ', expiredKey);
-    analytics.track({
-      userId: 'null',
-      containerId: expiredKey,
-      event: 'stop',
-      time: new Date()
-    });
-    console.log('redis stop');
-    cb(expiredKey);
+var findOld = function(){
+  var durationAllowed = 1000 * 1;
+  var oldestTime = (new Date().getTime()) - durationAllowed;
+
+  // find containers that are older than allowed time and then kill them
+  db.find({ "createdAt": {$lt: oldestTime} }, function (err, docs) {
+    console.log('expired docs', docs);
+    stopAll(docs);
+  });
+};
+
+redisCon.register = function(input){
+  db.insert({
+    createdAt: new Date().getTime(),
+    containerId: input
+  }, function(error, newDoc){
+    if(error) {
+      return console.log('Error in db insertion', error);
+    }
+    // analytics.track({
+    //   userId: 'null',
+    //   containerId: input,
+    //   event: 'start',
+    //   time: new Date()
+    // });
+    console.log('redis register', newDoc);
+    findOld();
   });
 };

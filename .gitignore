@@ -3,3 +3,4 @@ node_modules
 .settings
 nohup.out
 temp
+howtox.db

@@ -1,10 +1,12 @@
 // require db module
-// var mongoose = require('mongoose');
+var Datastore = require('nedb'),
+  path = require('path');
 
-module.exports = function(app) {
-  // Connect to db here using app.get('db-uri')
-  // mongoose.connect( app.get('db-uri') );
+// Connect to db here
+var db = new Datastore({
+  filename: path.join(__dirname, '..' ,'/howtox.db'),
+  autoload: true
+});
 
-  // Setup models
-  // require('../models/User.js')(app);
-};
+// a singleton due to the caching nature of require
+module.exports = db;
