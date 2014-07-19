@@ -1,26 +1,20 @@
 var fs = require('fs'),
   path = require('path'),
+  currentImages = require('../config/db').images,
   buildImage = require('./docker_build_image').buildImage;
-  
-var dockerImages;
 
-var readImageNames = function(){
-  var filePath = path.join(__dirname, '../docker_config/image_list.json');
-  var fileContent = fs.readFileSync(filePath, "utf8");
-  var output;
-  try {
-    output = JSON.parse(fileContent);
-  } catch (e) {
-    console.log('JSON parse failed', e);
-  }
-  return output;
-};
+var dockerImages;
 
 //check whether the image exist locally
 //docker images | grep imageName
 var imageExist = function(imageName){
-  var dockerImageNames = readImageNames();
-  return _.contains(dockerImageNames, imageName);
+  var dfd = Q.defer();
+  currentImages.count({ imageName: imageName }, function (err, count) {
+    if(err){
+      return dfd.reject();
+    }
+    return (count ? dfd.resolve() : dfd.reject());
+  });
 };
 
 var addImageName = function(imageName){
@@ -41,16 +35,18 @@ var createImage = function(imageName){
 var findOrCreateImage = module.exports = function(imageName){
   var dfd = Q.defer();
 
-  if( imageExist(imageName) ){
-    //docker image exist, pass
-    console.log('exist');
-    dfd.resolve('find');
-  } else {
-    //create image
-    console.log('Not exist');
-    // createImage(imageName);
-    dfd.resolve('create');
-  }
+  imageExist(imageName)
+    .then(function(){
+      //docker image exist, pass
+      console.log('exist');
+      dfd.resolve('find');
+    })
+    .catch(function(){
+      //create image
+      console.log('Not exist');
+      // createImage(imageName);
+      dfd.resolve('create');
+    });
 
   return dfd.promise;
 };
