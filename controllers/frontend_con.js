@@ -39,7 +39,8 @@ frontendCon.launchRepo = function(req, res){
         //start container
         dockerCon.create(req, res);
       } else if (state === 'create') {
-        dockerCon.createImage(req, res);
+        // dockerCon.createImage(req, res);
+        res.send('Image does not exist yet!');
       }
 
     });
