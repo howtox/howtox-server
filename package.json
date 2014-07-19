@@ -10,11 +10,11 @@
     "stylus": "*",
     "q": "*",
     "underscore": "^1.6.0",
-    "redis": "^0.10.1",
     "express-hbs": "*",
     "analytics-node": "*",
     "dockerode": "*",
-    "fs-extra": "^0.8.1"
+    "fs-extra": "^0.8.1",
+    "nedb": "^0.10.6"
   },
   "devDependencies": {
     "handlebars": "^2.0.0-alpha.2",

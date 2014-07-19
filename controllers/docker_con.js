@@ -10,14 +10,6 @@ var pexec = require('../utils/command_line').pexec,
   resWrite = require('../utils/res_write'),
   dockerCon = module.exports = {};
 
-//redis kills container after 15 minutes
-redisCon.stopCallback(function(data){
-  console.log('cb', data);
-  dockerUtils.stopOne(data).then(function(output){
-    console.log('stop success', output);
-  });
-});
-
 dockerCon.create = function(req, res){
   var repo = req.body && req.body.repo;
   var dfd = Q.defer();
