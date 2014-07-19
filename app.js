@@ -5,7 +5,8 @@ var express = require('express'),
 //some global objects
 global._    = require('underscore');
 global.Q    = require('q');
-global.analytics = require('analytics-node');
+var Analytics = require('analytics-node');
+global.analytics = new Analytics(process.env.p_analytics_secret);
 
 require('./config/env.js')(app);  //has to go first
 require('./config/util.js')(app);
