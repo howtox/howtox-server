@@ -8,6 +8,10 @@ global.Q    = require('q');
 var Analytics = require('analytics-node');
 global.analytics = new Analytics(process.env.p_analytics_secret);
 
+global.APP_CONFIG = {
+  domain: 'azat.howtox.com'
+};
+
 require('./config/env.js')(app);  //has to go first
 require('./config/util.js')(app);
 require('./config/db.js');
