@@ -1,6 +1,6 @@
 var pexec = require('../utils/command_line').pexec,
   path = require('path'),
-  templates = require('./docker_templates');
+  prepareTemplates = require('./docker_prepare_templates');
 
 var controllers = module.exports = {};
 
@@ -18,6 +18,6 @@ controllers.buildImage = function(imageName){
     userName: imageName.split('/')[0],
     repoName: imageName.split('/')[1]
   };
-  templates.completeRegenerate(options);  //sync
+  prepareTemplates.completeRegenerate(options);  //sync
   return build(options);
 };
