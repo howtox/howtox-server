@@ -37,7 +37,7 @@ frontendCon.launchRepo = function(req, res){
     .then(function(state){
       if(state === 'find') {
         //start container
-        dockerCon.create(req, res);
+        dockerCon.createContainer(req, res);
       } else if (state === 'create') {
         // dockerCon.createImage(req, res);
         res.send('Image does not exist yet!');
@@ -57,6 +57,6 @@ frontendCon.launchRepoNoCheck = function(req, res){
   req.body.repo = fullName;
 
   //start container
-  dockerCon.create(req, res);
+  dockerCon.createContainer(req, res);
 
 };

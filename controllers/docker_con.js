@@ -12,6 +12,7 @@ dockerCon.createContainer = function(req, res){
 
   dockerRun(req, res)
     .then(function(data){
+      console.log('data', data);
       // resWrite(req, res, data);
       res.render('launch', {
         fullName: req.body.repo,
