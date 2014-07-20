@@ -17,6 +17,7 @@ dockerCon.createContainer = function(req, res){
       res.render('launch', {
         fullName: req.body.repo,
         data: JSON.stringify(data),
+        domain: APP_CONFIG.domain,
         port: data.port
       });
     })

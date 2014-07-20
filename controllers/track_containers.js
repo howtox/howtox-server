@@ -13,22 +13,21 @@ var stopAll = function(docs){
     //     event: 'stop',
     //     time: new Date()
     //   });
-    // dockerUtils.stopOne(doc.id).then(function(output){
-    //   console.log('stop success', output);
-    // });
-    db.remove(doc, {}, function (err, numRemoved) {
-      console.log('numRemoved', numRemoved);
+    dockerUtils.stopOne(doc.containerId).then(function(output){
+      console.log('Container stop success', output);
+      db.remove(doc, {}, function (err, numRemoved) {
+        // console.log('numRemoved', numRemoved);
+      });
     });
   });
 };
 
-var findOld = function(){
-  var durationAllowed = 1000 * 1;
+var findExpired = function(){
+  var durationAllowed = 1000 * 60;
   var oldestTime = (new Date().getTime()) - durationAllowed;
 
   // find containers that are older than allowed time and then kill them
   db.find({ "createdAt": {$lt: oldestTime} }, function (err, docs) {
-    console.log('expired docs', docs);
     stopAll(docs);
   });
 };
@@ -47,7 +46,7 @@ TrackContainers.register = function(input){
     //   event: 'start',
     //   time: new Date()
     // });
-    console.log('redis register', newDoc);
-    findOld();
+    console.log('TrackContainers register', newDoc);
+    findExpired();
   });
 };
