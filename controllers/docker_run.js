@@ -1,4 +1,5 @@
 var pexec = require('../utils/command_line').pexec,
+  Q = require('q'),
   getNewPort = require('./docker_utils').getNewPort,
   TrackContainers = require('./track_containers');
 

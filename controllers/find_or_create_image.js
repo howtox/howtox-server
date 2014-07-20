@@ -1,4 +1,5 @@
 var fs = require('fs'),
+  Q = require('q'),
   path = require('path'),
   currentImages = require('../config/db').images,
   buildImage = require('./docker_build_image').buildImage;
