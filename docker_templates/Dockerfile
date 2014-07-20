@@ -34,7 +34,7 @@ RUN cd /srv/howtox/cloud9 && npm install
 RUN cd /srv/howtox && npm install tty.js
 {{postBuildHook}}
 
-EXPOSE 3131 8000 8001
+EXPOSE 3131 3132 3133
 CMD ["/usr/local/bin/supervisord"]
 
 

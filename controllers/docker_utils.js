@@ -1,4 +1,5 @@
 var Docker = require('dockerode'),
+  Q = require('q'),
   docker = new Docker({socketPath: '/var/run/docker.sock'}),
   pexec = require('../utils/command_line').pexec,
   util = module.exports = {};

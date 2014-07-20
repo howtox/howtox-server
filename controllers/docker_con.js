@@ -1,53 +1,23 @@
 var pexec = require('../utils/command_line').pexec,
   path = require('path'),
-  spawn = require('child_process').spawn,
-  redisCon = require('./redis_con'),
   dockerUtils = require('./docker_utils'),
-  angularAngularPhonecat = require('./angular_angular_phonecat'),
-  phaser = require('./shaohua_phaser_101'),
-  chjjTtyjs = require('./chjj_tty_js'),
-  repoFactory = require('./repo_factory.js'),
+  dockerRun = require('./docker_run'),
   resWrite = require('../utils/res_write'),
   dockerCon = module.exports = {};
 
-dockerCon.create = function(req, res){
+dockerCon.createContainer = function(req, res){
+  //check for repo
   var repo = req.body && req.body.repo;
-  var dfd = Q.defer();
-
   console.log('repo', repo);
 
-  switch(repo){
-    case 'angular/angular-phonecat':
-      dfd = angularAngularPhonecat.createAngular(req, res);
-      break;
-    case 'shaohua/phaser-101':
-      dfd = phaser.create(req, res);
-      break;
-    case 'chjj/tty.js':
-      dfd = chjjTtyjs.createTty(req, res);
-      break;
-    case 'mikeal/request':
-    case 'daviferreira/medium-editor':
-    case 'jakiestfu/medium.js':
-    case 'tholman/zenpen':
-    case 'mduvall/grande.js':
-    case 'sofish/pen':
-    case 'base_case':
-      dfd = repoFactory.createFactory['base_case'](req, res);
-      break;
-    default:
-      console.log('default repo');
-      dfd = repoFactory.createFactory['base_case'](req, res);
-      // dfd.reject();
-      break;
-  }
-
-  dfd
+  dockerRun(req, res)
     .then(function(data){
+      console.log('data', data);
       // resWrite(req, res, data);
       res.render('launch', {
         fullName: req.body.repo,
         data: JSON.stringify(data),
+        domain: APP_CONFIG.domain,
         port: data.port
       });
     })

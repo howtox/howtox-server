@@ -1,7 +1,6 @@
-var _ = require('underscore');
-var Q = require('q');
-var path = require('path');
-var exec = require('child_process').exec;
+var Q = require('q'),
+  path = require('path'),
+  exec = require('child_process').exec;
 
 //converting exec to a promised version
 exports.pexec = function(program, options){

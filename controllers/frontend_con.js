@@ -13,7 +13,7 @@ frontendCon.index = function(req, res){
 
 frontendCon.getBox = function(req, res){
   var boxId = req && req.params && req.params.id;
-  var domain = 'http://da.howtox.com:';
+  var domain = 'http://'+ APP_CONFIG.domain + ':';
   var editorSrc = domain + boxId;
   var terminalSrc = domain + (parseInt(boxId, 10) + 1);
   // res.end('index' + boxId);
@@ -37,7 +37,7 @@ frontendCon.launchRepo = function(req, res){
     .then(function(state){
       if(state === 'find') {
         //start container
-        dockerCon.create(req, res);
+        dockerCon.createContainer(req, res);
       } else if (state === 'create') {
         // dockerCon.createImage(req, res);
         res.send('Image does not exist yet!');
@@ -57,6 +57,6 @@ frontendCon.launchRepoNoCheck = function(req, res){
   req.body.repo = fullName;
 
   //start container
-  dockerCon.create(req, res);
+  dockerCon.createContainer(req, res);
 
 };
