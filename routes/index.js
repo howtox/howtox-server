@@ -14,7 +14,7 @@ module.exports = function(app){
   app.get('/docker', dockerCon.index);
   app.get('/docker/', dockerCon.index);
 
-  app.post('/docker/containers/create/', dockerCon.create);
+  app.post('/docker/containers/create/', dockerCon.createContainer);
   //todo
   //add a get route to do the same thing
 

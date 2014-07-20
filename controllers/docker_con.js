@@ -1,14 +1,11 @@
 var pexec = require('../utils/command_line').pexec,
   path = require('path'),
-  redisCon = require('./redis_con'),
   dockerUtils = require('./docker_utils'),
   dockerRun = require('./docker_run'),
   resWrite = require('../utils/res_write'),
   dockerCon = module.exports = {};
 
-dockerCon.create = function(req, res){
-  var dfd = Q.defer();
-
+dockerCon.createContainer = function(req, res){
   //check for repo
   var repo = req.body && req.body.repo;
   console.log('repo', repo);

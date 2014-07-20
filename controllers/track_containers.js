@@ -1,5 +1,5 @@
 var path = require('path'),
-  redisCon = module.exports = {},
+  TrackContainers = module.exports = {},
   dockerUtils = require('./docker_utils'),
   _ = require('underscore'),
   db = require('../config/db').containers; //cached
@@ -33,7 +33,7 @@ var findOld = function(){
   });
 };
 
-redisCon.register = function(input){
+TrackContainers.register = function(input){
   db.insert({
     createdAt: new Date().getTime(),
     containerId: input

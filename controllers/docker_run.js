@@ -1,6 +1,6 @@
 var pexec = require('../utils/command_line').pexec,
   getNewPort = require('./docker_utils').getNewPort,
-  redisCon = require('./redis_con');
+  TrackContainers = require('./track_containers');
 
 var getCommandAndPorts = function(repo){
   var randomPort = getNewPort();
@@ -24,7 +24,7 @@ module.exports = function(req, res){
   var commandObj = getCommandAndPorts(repo);
   pexec(commandObj.command)
     .then(function(data){
-      redisCon.register(data);
+      TrackContainers.register(data);
       dfd.resolve(_.extend({containerId: data}, commandObj));
     });
 
