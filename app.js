@@ -7,7 +7,8 @@ var Analytics = require('analytics-node');
 global.analytics = new Analytics(process.env.p_analytics_secret);
 
 global.APP_CONFIG = {
-  domain: 'azat.howtox.com'
+  domain: 'azat.howtox.com',
+  container_lifespan: 60 //in seconds
 };
 
 require('./config/env.js')(app);  //has to go first

@@ -23,11 +23,11 @@ var stopAll = function(docs){
 };
 
 var findExpired = function(){
-  var durationAllowed = 1000 * 60;
-  var oldestTime = (new Date().getTime()) - durationAllowed;
+  var lifespan = 1000 * APP_CONFIG.containerLifespan; //in ms
+  var cutoffTime = (new Date().getTime()) - lifespan;
 
   // find containers that are older than allowed time and then kill them
-  db.find({ "createdAt": {$lt: oldestTime} }, function (err, docs) {
+  db.find({ "createdAt": {$lt: cutoffTime} }, function (err, docs) {
     stopAll(docs);
   });
 };
