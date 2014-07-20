@@ -24,7 +24,7 @@ var images = new Datastore({
 //asyn might cause problems when init
 
 //init images
-var initImages = ["mikeal/request", "sofish/pen", "LearnBoost/socket.io", "howtox/yc_base"];
+var initImages = ["howtox/yc_base", "howtox/azat-express"];
 
 var query;
 _.each(initImages, function(item){

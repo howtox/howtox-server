@@ -14,7 +14,7 @@
     "analytics-node": "*",
     "dockerode": "*",
     "fs-extra": "^0.8.1",
-    "nedb": "^0.10.6"
+    "nedb": "~0.10.6"
   },
   "devDependencies": {
     "handlebars": "^2.0.0-alpha.2",
