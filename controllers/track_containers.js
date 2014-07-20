@@ -1,7 +1,7 @@
 var path = require('path'),
+  _ = require('underscore'),
   TrackContainers = module.exports = {},
   dockerUtils = require('./docker_utils'),
-  _ = require('underscore'),
   db = require('../config/db').containers; //cached
 
 //kills container after 15 minutes
