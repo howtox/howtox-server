@@ -16,10 +16,12 @@ frontendCon.getBox = function(req, res){
   var domain = 'http://'+ APP_CONFIG.domain + ':';
   var editorSrc = domain + boxId;
   var terminalSrc = domain + (parseInt(boxId, 10) + 1);
+  var webSrc = domain + (parseInt(boxId, 10) + 2);
   // res.end('index' + boxId);
   res.render('box_iframe', {
     editorSrc: editorSrc,
-    terminalSrc: terminalSrc
+    terminalSrc: terminalSrc,
+    webSrc: webSrc
   });
 };
 

@@ -7,15 +7,31 @@ body {
   height: 100%;
   width: 100%;
   border: none;
+  background-color: #272727;
 }
 iframe {
   width: 100%;
   overflow: hidden;
   border: none;
 }
+.preview {
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+}
+.preview a:link {
+  color: #fff;
+  text-decoration: bold;
+}
+.preview a:visited {
+  color: #999;
+  text-decoration: none;
+}
 .editor {
-  height: 70%;
+  height: 60%;
+  height: calc(70% - 30px);
 }
 .terminal {
-  height: 30%;
+  height: 28%;
 }
