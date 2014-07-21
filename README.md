@@ -40,6 +40,8 @@ apt-get install npm
 ln -s `which nodejs` /usr/local/bin/node
 cd /home
 git clone https://github.com/howtox/howtox-server
+cd /home/howtox-server && npm install
+# run the app by node app.js
 #
 #add env
 #
