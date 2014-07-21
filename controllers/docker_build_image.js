@@ -9,7 +9,7 @@ var controllers = module.exports = {};
 var build = function(options){
   console.log('build', options);
   var imageName = options.userName + '/' + options.repoName;
-  var cmd = 'docker build -t ' + imageName + ' .';
+  var cmd = 'docker build -t ' + imageName.toLowerCase() + ' .';
   return pexec(cmd, {
     cwd: path.join(__dirname, '..' ,'/temp', options.repoName)
   });
@@ -22,7 +22,7 @@ var buildSpawn = function(options){
   var imageName = options.userName + '/' + options.repoName;
 
   //http://stackoverflow.com/questions/20357216/stream-stdout-from-child-process-to-browser-via-expressjs
-  var child = spawn('docker', ['build', '-t', imageName, '.'],  {
+  var child = spawn('docker', ['build', '-t', imageName.toLowerCase(), '.'],  {
     cwd: path.join(__dirname, '..' ,'/temp', options.repoName)
   });
   //http://rockycode.com/blog/pipe-stdout-socketio/
