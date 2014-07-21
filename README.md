@@ -59,8 +59,12 @@ export EDITOR=vi
 docker pull howtox/yc_base
 ```
 
-## Side note - make a docker image with [Docker Automated Build](http://docs.docker.com/docker-hub/builds/)
-### Let's try to make a howtox-compatible Docker image from scratch
+## Two ways of building a howtox-compatible Docker image
+
+### Make a docker image with [Docker Automated Build](http://docs.docker.com/docker-hub/builds/)
+TBD
+
+### Make a howtox-compatible Docker image from scratch
 - Get the url for the repo of interest. In my case, https://github.com/howtox/express.
 - In your droplet
 ```
