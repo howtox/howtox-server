@@ -9,7 +9,7 @@ global.analytics = new Analytics(process.env.p_analytics_secret);
 global.APP_CONFIG = {
   domain: 'azat.howtox.com',
   containerLifespan: 60, //in seconds
-  existingImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
+  whitelistedImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
 };
 
 require('./config/env.js')(app);  //has to go first

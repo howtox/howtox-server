@@ -24,7 +24,7 @@ var images = new Datastore({
 //asyn might cause problems when init
 
 //init images
-var initImages = APP_CONFIG.existingImages;
+var initImages = APP_CONFIG.whitelistedImages;
 
 var query;
 _.each(initImages, function(item){
