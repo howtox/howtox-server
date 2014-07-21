@@ -6,15 +6,16 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "~3",
-    "stylus": "*",
-    "q": "*",
-    "underscore": "^1.6.0",
-    "express-hbs": "*",
     "analytics-node": "*",
+    "commander": "^2.3.0",
     "dockerode": "*",
+    "express": "~3",
+    "express-hbs": "*",
     "fs-extra": "^0.8.1",
-    "nedb": "~0.10.6"
+    "nedb": "~0.10.6",
+    "q": "*",
+    "stylus": "*",
+    "underscore": "^1.6.0"
   },
   "devDependencies": {
     "handlebars": "^2.0.0-alpha.2",
