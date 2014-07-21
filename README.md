@@ -61,21 +61,22 @@ docker pull howtox/yc_base
 
 ## Two ways of building a howtox-compatible Docker image
 
-### Make a docker image with [Docker Automated Build](http://docs.docker.com/docker-hub/builds/)
+### Make a howtox-compatible Docker image with [Docker Automated Build](http://docs.docker.com/docker-hub/builds/)
 TBD
 
 ### Make a howtox-compatible Docker image from scratch
-- Get the url for the repo of interest. In my case, https://github.com/howtox/express.
-- In your droplet
+- Get the url for the repo of interest. In this case, https://github.com/howtox/express.
+- In the droplet
 ```
 cd /home/howtox-server/controllers
 node docker_build_image_cmd.js howtox/express
 ```
+- Wait for a very long time...
 - Verify the image has been built by
 ```
 docker images | grep 'howtox/express'
 ```
-- update the app.js to add that image to the whitelist
+- Update the app.js to add that image to the whitelist
 ```
 global.APP_CONFIG = {
   domain: 'azat.howtox.com',
@@ -83,6 +84,7 @@ global.APP_CONFIG = {
   whitelistedImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
 };
 ```
+- Start the node app by ```node app.js``` and you should be able to visit the new image at: http://azat.howtox.com:3000/launch/howtox/express
 
 ### Troubleshoot
 #### howtox-tty.js failed
