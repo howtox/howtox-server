@@ -14,7 +14,7 @@ NOT secure due to docker needs ROOT access. Read more from [Docker](https://docs
 
 ## Set up your own CloudIDE service
 - Create a [DigitalOcean droplet with ref code](https://www.digitalocean.com/?refcode=24bf100573ba)
-- Choose 'Docker on Ubuntu' under 'Select Image'->'Applications'. see ![screenshot](http://imgur.com/rw7TlGZ)
+- Choose 'Docker on Ubuntu' under 'Select Image'->'Applications'. see ![screenshot](http://imgur.com/rw7TlGZ.png)
 - Set up the droplet as usual
 - Clone down this repo
 - Set up this repo
