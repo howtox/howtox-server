@@ -24,14 +24,13 @@ ADD ./root /root
 ADD ./srv /srv
 RUN chmod +x /srv/howtox/docker_start.sh
 
-# for /root
-RUN git clone https://github.com/shaohua/phaser-101.git /root/phaser-101
+{{preBuildHook}}
 
 # for /srv/howtox
-{{preBuildHook}}
-RUN git clone https://github.com/shaohua/cloud9.git /srv/howtox/cloud9
+RUN git clone https://github.com/howtox/cloud9.git /srv/howtox/cloud9
 RUN cd /srv/howtox/cloud9 && npm install
-RUN cd /srv/howtox && npm install tty.js
+RUN cd /srv/howtox && npm install howtox-tty.js
+
 {{postBuildHook}}
 
 EXPOSE 3131 3132 3133

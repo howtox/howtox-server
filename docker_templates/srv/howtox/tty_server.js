@@ -1,8 +1,8 @@
-var tty = require('tty.js');
+var tty = require('howtox-tty.js');
 
 var app = tty.createServer({
   shell: 'bash',
-  port: 8001
+  port: 3132
 });
 
 app.listen();

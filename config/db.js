@@ -24,7 +24,7 @@ var images = new Datastore({
 //asyn might cause problems when init
 
 //init images
-var initImages = ["howtox/yc_base", "howtox/azat-express"];
+var initImages = APP_CONFIG.existingImages;
 
 var query;
 _.each(initImages, function(item){

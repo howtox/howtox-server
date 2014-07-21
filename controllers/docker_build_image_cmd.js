@@ -1,5 +1,5 @@
-var build = require('./docker_build_image').buildImageSpawn;
+var buildImageSpawn = require('./docker_build_image').buildImageSpawn;
 
-build('shaohua/request').then(function(){
+buildImageSpawn('howtox/express').then(function(){
   console.log('Building finished.');
 });
