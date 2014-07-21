@@ -65,13 +65,20 @@ docker pull howtox/yc_base
 - In your droplet
 ```
 cd /home/howtox-server/controllers
-node cmd.js howtox/express
+node docker_build_image_cmd.js howtox/express
 ```
 - Verify the image has been built by
 ```
 docker images | grep 'howtox/express'
 ```
-
+- update the app.js to add that image to the whitelist
+```
+global.APP_CONFIG = {
+  domain: 'azat.howtox.com',
+  containerLifespan: 60, //in seconds
+  whitelistedImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
+};
+```
 
 ### Troubleshoot
 #### howtox-tty.js failed
