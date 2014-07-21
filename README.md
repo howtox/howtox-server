@@ -1,10 +1,5 @@
 #howtox-server
 
-## Run in production
-```
-  NODE_ENV=production node app.js
-```
-
 ## Intro
 An node app that converts incoming HTTP requests to Docker command, run those command through ```docker run```, and returns a webpage with a cloud-IDE and a cloud-terminal.
 
@@ -85,6 +80,7 @@ global.APP_CONFIG = {
 };
 ```
 - Start the node app by ```node app.js``` and you should be able to visit the new image at: http://azat.howtox.com:3000/launch/howtox/express
+
 
 ### Troubleshoot
 #### howtox-tty.js failed
