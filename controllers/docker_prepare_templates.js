@@ -30,14 +30,16 @@ var copyFiles = function(repoName){
     _getRepoPath(repoName));
 };
 
-var updateDockerFile = function(repoName){
+var updateDockerFile = function(userName, repoName){
   var absPath = path.join(__dirname, '../docker_templates') + '/Dockerfile';
   var dockerfileRawTemplate = fs.readFileSync(absPath, {encoding: 'utf8'});
   var dockerfileTemplate = Handlebars.compile(dockerfileRawTemplate);
-  var preBuildHook = 'RUN easy_install supervisor \n' +
-                     'RUN mkdir -p /var/log/supervisor';
-  var postBuildHook = 'RUN easy_install supervisor \n' +
-                     'RUN mkdir -p /var/log/supervisor';
+
+  var cloneCmd = 'RUN git clone https://github.com/'+ userName +'/'+ repoName +'.git ' +
+                     '/root/' + repoName;
+
+  var preBuildHook = cloneCmd;
+  var postBuildHook = '';
 
   var output = dockerfileTemplate({
     preBuildHook: preBuildHook,
@@ -70,7 +72,7 @@ Templates.completeRegenerate = function(options){
   deleteAndCreateFolder(repoName);
   // deleteFiles();
   copyFiles(repoName);
-  updateDockerFile(repoName);
+  updateDockerFile(userName, repoName);
   updateSupervisordFile(repoName);
 };
 
