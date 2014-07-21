@@ -29,7 +29,7 @@ RUN chmod +x /srv/howtox/docker_start.sh
 # for /srv/howtox
 RUN git clone https://github.com/shaohua/cloud9.git /srv/howtox/cloud9
 RUN cd /srv/howtox/cloud9 && npm install
-RUN cd /srv/howtox && npm install tty.js
+RUN cd /srv/howtox && npm install howtox-tty.js
 
 {{postBuildHook}}
 
