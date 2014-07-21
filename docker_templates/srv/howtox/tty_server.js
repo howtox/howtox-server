@@ -1,4 +1,4 @@
-var tty = require('tty.js');
+var tty = require('howtox-tty.js');
 
 var app = tty.createServer({
   shell: 'bash',
