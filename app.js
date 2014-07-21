@@ -10,7 +10,7 @@ if(process.env.p_analytics_secret){
 
 global.APP_CONFIG = {
   domain: 'azat.howtox.com',
-  containerLifespan: 60, //in seconds
+  containerLifespan: 600, //in seconds
   whitelistedImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
 };
 

@@ -46,10 +46,19 @@ cd /home/howtox-server && npm install
 #add env
 #
 vi ~/.bashrc
-export p_analytics_secret='secret_write_key_from_segment.io'
+#optional
+#export p_analytics_secret='secret_write_key_from_segment.io'
 export EDITOR=vi
 ```
 - Basically, you want to set up node.js and some environment variables. The other way to set up node/npm is using nvm.
+- Finally, edit app.js to change the following global variables
+```
+global.APP_CONFIG = {
+  domain: 'azat.howtox.com',
+  containerLifespan: 600, //in seconds
+  whitelistedImages: ["howtox/yc_base", "howtox/azat-express", "howtox/express"]
+};
+```
 
 ## Pull docker images to the droplet
 ```
