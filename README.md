@@ -71,3 +71,11 @@ node cmd.js howtox/express
 ```
 docker images | grep 'howtox/express'
 ```
+
+
+### Troubleshoot
+#### howtox-tty.js failed
+```
+npm install howtox-tty.js
+```
+- might need [xcode command line tool](https://github.com/atom/terminal/issues/28#issuecomment-39405908)
