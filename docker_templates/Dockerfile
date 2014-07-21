@@ -14,20 +14,21 @@ RUN easy_install supervisor
 RUN mkdir -p /var/log/supervisor
 # create directory for child images to store configuration in
 RUN mkdir -p /etc/supervisor/conf.d
-ADD ./srv/howtox/supervisord.conf /etc/supervisord.conf
+ADD ./docker_config/srv/howtox/supervisord.conf /etc/supervisord.conf
 
 ENV HOME /root
 WORKDIR /root
 
 # Add scripts
-ADD ./root /root
-ADD ./srv /srv
+ADD ./docker_config/root /root
+ADD ./docker_config/srv /srv
 RUN chmod +x /srv/howtox/docker_start.sh
 
 {{preBuildHook}}
 
 # for /srv/howtox
-RUN git clone https://github.com/howtox/cloud9.git /srv/howtox/cloud9
+# todo, make a howtox-cloud9 module
+RUN git clone --depth 1 https://github.com/howtox/cloud9.git /srv/howtox/cloud9
 RUN cd /srv/howtox/cloud9 && npm install
 RUN cd /srv/howtox && npm install howtox-tty.js
 

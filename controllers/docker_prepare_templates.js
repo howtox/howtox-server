@@ -54,7 +54,7 @@ var updateDockerFile = function(userName, repoName){
 
 var updateSupervisordFile = function(repoName){
   //repoName
-  var absPath = path.join(__dirname, '../docker_templates') + '/srv/howtox/supervisord.conf';
+  var absPath = path.join(__dirname, '../docker_templates') + '/docker_config/srv/howtox/supervisord.conf';
   var dockerfileRawTemplate = fs.readFileSync(absPath, {encoding: 'utf8'});
   var dockerfileTemplate = Handlebars.compile(dockerfileRawTemplate);
 
@@ -63,7 +63,7 @@ var updateSupervisordFile = function(repoName){
   });
 
   var absOutputPath = _getRepoPath(repoName);
-  fs.writeFileSync(absOutputPath + '/srv/howtox/supervisord.conf', output, {encoding: 'utf8'});
+  fs.writeFileSync(absOutputPath + '/docker_config/srv/howtox/supervisord.conf', output, {encoding: 'utf8'});
 };
 
 Templates.completeRegenerate = function(options){
