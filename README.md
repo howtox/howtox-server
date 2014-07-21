@@ -34,9 +34,9 @@ docker run -d -p 63814:3131 -p 63815:3132 -p 63816:3133 howtox/azat-express /usr
 - Make sure you picked the correct image 'Docker on Ubuntu'
 ```
 apt-get update
-apt-get upgrade
-apt-get install nodejs
-apt-get install npm
+apt-get upgrade -y
+apt-get install nodejs -y
+apt-get install npm -y
 ln -s `which nodejs` /usr/local/bin/node
 cd /home
 git clone https://github.com/howtox/howtox-server
