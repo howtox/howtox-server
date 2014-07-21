@@ -86,3 +86,6 @@ global.APP_CONFIG = {
 npm install howtox-tty.js
 ```
 - might need [xcode command line tool](https://github.com/atom/terminal/issues/28#issuecomment-39405908)
+
+
+### License(MIT)
